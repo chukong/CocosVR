@@ -1,0 +1,109 @@
+system shot
+{
+    category                                    cocos
+    technique 
+    {
+        material                                PUMediaPack/Smoke_11
+        default_particle_width                  36.7964
+        default_particle_height                 36.7964
+        default_particle_depth                  36.7964
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point Emitter72
+        {
+            angle                               360
+            time_to_live                        2
+            velocity                            0.5
+            all_particle_dimensions             dyn_random
+            {
+                min                             0.2
+                max                             2
+            }
+            colour                              0.254902 0.254902 0.254902 1
+            force_emission                      true
+        }
+        affector                                Scale Affector190
+        {
+            xyz_scale                           2
+        }
+        affector                                ScaleVelocity Affector191
+        {
+            velocity_scale                      dyn_random
+            {
+                min                             0.2
+                max                             2
+            }
+        }
+        affector                                TextureRotator Affector192
+        {
+            use_own_rotation                    true
+            rotation                            dyn_random
+            {
+                min                             -5
+                max                             5
+            }
+            rotation_speed                      dyn_random
+            {
+                min                             -2
+                max                             2
+            }
+        }
+        affector                                Colour Affector193
+        {
+            time_colour                         0    0.752941 0.752941 0.752941 1
+            time_colour                         1    0.752941 0.752941 0.752941 0
+        }
+    }
+    technique Technique72
+    {
+        keep_local                              true
+        visual_particle_quota                   1
+        material                                PUMediaPack/Flare_01
+        renderer                                Billboard
+        {
+            billboard_type                      oriented_self
+        }
+        emitter                                 Point Emitter73
+        {
+            angle                               0
+            time_to_live                        0.2
+            velocity                            0.001
+            all_particle_dimensions             1
+            position                            0 0 2
+            direction                           0 0 1
+            force_emission                      true
+        }
+        affector                                Colour Affector198
+        {
+            time_colour                         0    1 1 0 1
+            time_colour                         1    1 0 0 0
+        }
+        affector                                Scale Affector199
+        {
+            x_scale                             10
+            y_scale                             100
+        }
+    }
+    technique Technique75
+    {
+        keep_local                              true
+        visual_particle_quota                   1
+        material                                PUMediaPack/Flare_01
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point Emitter76
+        {
+            time_to_live                        0.2
+            velocity                            0.001
+            all_particle_dimensions             10
+            force_emission                      true
+        }
+        affector                                Colour Affector200
+        {
+            time_colour                         0    1 1 0 1
+            time_colour                         1    1 0 0 0
+        }
+    }
+}

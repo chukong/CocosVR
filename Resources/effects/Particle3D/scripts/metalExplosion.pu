@@ -1,0 +1,173 @@
+system explosion
+{
+    category                                    Explosion
+    technique Fire
+    {
+        visual_particle_quota                   300
+        material                                ParticleUniverse/Nucleus
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point FireEmitter
+        {
+            emission_rate                       60
+            angle                               360
+            time_to_live                        1
+            velocity                            1.8
+            duration                            0.3
+            all_particle_dimensions             dyn_random
+            {
+                min                             0.6
+                max                             2.4
+            }
+            colour                              1 0.5 0.3 1
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_curved_linear
+            {
+                control_point                   0 60
+                control_point                   0.3 0.6
+                control_point                   1 0
+            }
+        }
+        affector                                TextureRotator 
+        {
+            use_own_rotation                    true
+            rotation                            dyn_random
+            {
+                min                             -90
+                max                             90
+            }
+            rotation_speed                      0
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         0.05  0.3 0.3 0.3 1
+            time_colour                         1    0 0 0 1
+            colour_operation                    multiply
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   100
+        material                                ParticleUniverse/Debris
+        renderer                                Billboard
+        {
+            billboard_type                      oriented_self
+        }
+        emitter                                 Point Debris
+        {
+            emission_rate                       100
+            angle                               360
+            time_to_live                        2
+            velocity                            dyn_random
+            {
+                min                             18
+                max                             36
+            }
+            particle_width                      dyn_random
+            {
+                min                             0.09
+                max                             0.6
+            }
+            particle_height                     dyn_random
+            {
+                min                             1.5
+                max                             3
+            }
+            enabled                             false
+            force_emission                      true
+        }
+        affector                                Scale 
+        {
+            y_scale                             dyn_curved_linear
+            {
+                control_point                   0 -6
+                control_point                   0.3 -0.6
+                control_point                   1 0
+            }
+        }
+        affector                                Jet 
+        {
+            acceleration                        -0.06
+        }
+        affector                                LinearForce 
+        {
+            force_vector                        0 -3 0
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    0.8 1 1 1
+            time_colour                         1    0 0 0 1
+        }
+        observer                                OnTime 
+        {
+            handler                             DoEnableComponent 
+            {
+                enable_component                emitter_component Debris true
+            }
+            since_start_system                  true
+            on_time                             greater_than 0.1
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   300
+        material                                PUMediaPack/AtlasSmoke
+        renderer                                Billboard
+        {
+            render_queue_group                  51
+            texture_coords_rows                 4
+            texture_coords_columns              4
+            billboard_rotation_type             vertex
+        }
+        emitter                                 Slave 
+        {
+            time_to_live                        1.2
+            all_particle_dimensions             dyn_random
+            {
+                min                             1.2
+                max                             3
+            }
+            direction                           0 0 0
+            master_technique_name               Fire
+            master_emitter_name                 FireEmitter
+        }
+        affector                                TextureRotator 
+        {
+            use_own_rotation                    true
+            rotation                            dyn_random
+            {
+                min                             -90
+                max                             90
+            }
+            rotation_speed                      0
+        }
+        affector                                TextureAnimator 
+        {
+            end_texture_coords_range            15
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_curved_linear
+            {
+                control_point                   0 60
+                control_point                   0.2 0.6
+                control_point                   1 0
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    0 0 0 1
+            time_colour                         0.1  0 0 0 1
+            time_colour                         0.11  0.3 0.3 0.3 1
+            time_colour                         0.8  0.3 0.3 0.3 1
+            time_colour                         1    0 0 0 0
+        }
+        behaviour                               Slave
+        {
+        }
+    }
+}

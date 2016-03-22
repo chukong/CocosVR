@@ -1,0 +1,125 @@
+system Smoke/mp_glowing_smoke
+{
+    technique 
+    {
+        visual_particle_quota                   100
+        material                                mp_smoke_04
+        renderer                                Billboard
+        {
+            render_queue_group                  51
+            billboard_rotation_type             vertex
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       25
+            angle                               5
+            time_to_live                        4
+            velocity                            dyn_random
+            {
+                min                             200
+                max                             200
+            }
+            all_particle_dimensions             dyn_random
+            {
+                min                             50
+                max                             100
+            }
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_oscillate
+            {
+                oscillate_frequency             4
+                oscillate_phase                 0
+                oscillate_base                  200
+                oscillate_amplitude             200
+                oscillate_type                  sine
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    0.694118 0.694118 0.694118 0
+            time_colour                         0.1  0.694118 0.694118 0.694118 0.3
+            time_colour                         1    0.694118 0.694118 0.694118 0
+        }
+        affector                                TextureRotator 
+        {
+            use_own_rotation                    true
+            rotation                            dyn_random
+            {
+                min                             -3
+                max                             3
+            }
+            rotation_speed                      dyn_random
+            {
+                min                             -1
+                max                             1
+            }
+        }
+        observer                                OnEmission 
+        {
+            handler                             DoPlacementParticle 
+            {
+                force_emitter                   SmokeEmitter
+                number_of_particles             2
+                inherit_direction               true
+                inherit_time_to_live            true
+            }
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   200
+        material                                mp_smoke_04_mod
+        renderer                                Billboard
+        {
+            billboard_rotation_type             vertex
+        }
+        emitter                                 Point SmokeEmitter
+        {
+            emission_rate                       0
+            angle                               5
+            velocity                            dyn_random
+            {
+                min                             100
+                max                             200
+            }
+            all_particle_dimensions             dyn_random
+            {
+                min                             50
+                max                             100
+            }
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_oscillate
+            {
+                oscillate_frequency             4
+                oscillate_phase                 0
+                oscillate_base                  200
+                oscillate_amplitude             200
+                oscillate_type                  sine
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    0 0 0 1
+            time_colour                         0.1  1 0.556863 0.392157 1
+            time_colour                         1    0 0 0 1
+        }
+        affector                                TextureRotator 
+        {
+            use_own_rotation                    true
+            rotation                            dyn_random
+            {
+                min                             -3
+                max                             3
+            }
+            rotation_speed                      dyn_random
+            {
+                min                             -1
+                max                             1
+            }
+        }
+    }
+}

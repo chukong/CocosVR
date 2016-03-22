@@ -1,0 +1,178 @@
+//-----------------------------------------------------------------------------------------------------------------------
+// This script is part of the Particle Universe Media Pack product.
+//
+// Copyright (c) 2008 Henry van Merode
+//
+// Usage of this program is licensed under the terms of the Particle Universe Commercial License.
+// You can find a copy of the Commercial License in the Particle Universe package.
+//-----------------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------------------------
+material PUMediaPack/Smoke_11
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            texture_unit
+            {
+                texture pump_smoke_01.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------------------------
+material PUMediaPack/Dirt_11
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            texture_unit
+            {
+                texture pump_dirt_01.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material mp_smoke_smolder
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend alpha_blend
+
+            texture_unit
+            {
+                texture mp_smoke_smolder.dds
+            }
+        }
+    }
+}
+
+material mp_explosion_04
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend add
+            texture_unit
+            {
+                texture mp_explosion_04.dds
+            }
+        }
+    }
+}
+
+material ParticleUniverse/Nucleus
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend add
+            depth_write off
+
+            texture_unit
+            {
+                texture pu_nucleus.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material ParticleUniverse/Debris
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend add
+            depth_write off
+
+            texture_unit
+            {
+                texture pu_fire_01_64x64.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material PUMediaPack/AtlasSmoke
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            texture_unit
+            {
+                texture pump_atlas_smoke.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material ParticleUniverse/ExplosionFire
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend add
+            fog_override true
+
+            texture_unit
+            {
+                texture pu_smoke_02_128x128.png
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+material mp_smoke_04
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend alpha_blend
+
+            texture_unit
+            {
+                texture mp_smoke_04.dds
+            }
+        }
+    }
+}

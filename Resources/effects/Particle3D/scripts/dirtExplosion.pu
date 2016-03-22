@@ -1,0 +1,125 @@
+system dirtExplosion
+{
+    category                                    Explosion
+    technique 
+    {
+        visual_particle_quota                   30
+        material                                PUMediaPack/Dirt_11
+        renderer                                Billboard
+        {
+            billboard_type                      oriented_self
+            billboard_origin                    bottom_center
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       15
+            angle                               40
+            time_to_live                        dyn_random
+            {
+                min                             1.8
+                max                             3.4
+            }
+            velocity                            0.03
+            particle_width                      dyn_random
+            {
+                min                             0.15
+                max                             0.375
+            }
+            particle_height                     dyn_random
+            {
+                min                             0.6
+                max                             1.8
+            }
+            colour                              0.76 0.7 0.64 1
+            force_emission                      true
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       15
+            angle                               40
+            time_to_live                        dyn_random
+            {
+                min                             1.8
+                max                             3.4
+            }
+            velocity                            0.03
+            particle_width                      dyn_random
+            {
+                min                             0.075
+                max                             0.225
+            }
+            particle_height                     dyn_random
+            {
+                min                             0.06
+                max                             0.225
+            }
+            direction                           0 0.5 0
+            colour                              0.76 0.7 0.64 1
+            force_emission                      true
+        }
+        affector                                Scale 
+        {
+            x_scale                             dyn_curved_linear
+            {
+                control_point                   0 30
+                control_point                   0.2 3
+                control_point                   0.3 0.9
+                control_point                   1 0
+            }
+            y_scale                             dyn_curved_linear
+            {
+                control_point                   0 30
+                control_point                   0.1 12
+                control_point                   0.2 3
+                control_point                   1 0.06
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         0.2  1 1 1 1
+            time_colour                         0.4  1 1 1 1
+            time_colour                         1    1 1 1 0
+            colour_operation                    multiply
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   100
+        material                                PUMediaPack/Smoke_11
+        renderer                                Billboard
+        {
+            billboard_type                      oriented_self
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       100
+            angle                               10
+            time_to_live                        4
+            velocity                            dyn_random
+            {
+                min                             9
+                max                             21
+            }
+            all_particle_dimensions             dyn_random
+            {
+                min                             0.15
+                max                             0.6
+            }
+            colour                              0.32 0.3 0.2 1
+            force_emission                      true
+        }
+        affector                                LinearForce 
+        {
+            force_vector                        0 -15 0
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         0.2  1 1 1 1
+            time_colour                         0.4  1 1 1 1
+            time_colour                         1    1 1 1 0
+            colour_operation                    multiply
+        }
+    }
+}

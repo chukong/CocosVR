@@ -1,0 +1,64 @@
+system Explosion/mp_explosion_02
+{
+    technique 
+    {
+        visual_particle_quota                   20
+        material                                mp_explosion_04
+        renderer                                Billboard
+        {
+            texture_coords_rows                 2
+            texture_coords_columns              2
+            billboard_type                      oriented_self
+            billboard_rotation_type             vertex
+        }
+        emitter                                 Box 
+        {
+            emission_rate                       200
+            angle                               360
+            time_to_live                        dyn_random
+            {
+                min                             0.2
+                max                             0.3
+            }
+            velocity                            dyn_random
+            {
+                min                             300
+                max                             600
+            }
+            duration                            0.15
+            all_particle_dimensions             dyn_random
+            {
+                min                             50
+                max                             100
+            }
+            texture_coords                      1
+            colour                              1 0.584314 0.333333 1
+            box_width                           20
+            box_height                          20
+            box_depth                           20
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_random
+            {
+                min                             500
+                max                             2000
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         1    0 0 0 1
+            colour_operation                    multiply
+        }
+        affector                                TextureRotator 
+        {
+            rotation                            dyn_random
+            {
+                min                             -3
+                max                             3
+            }
+            rotation_speed                      0
+        }
+    }
+}
