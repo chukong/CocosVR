@@ -26,7 +26,9 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.cpp;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.GameControllerActivity;
+import android.os.Bundle;
+import android.app.Activity;
 
 public class AppActivity extends GameControllerActivity {
 
@@ -41,6 +43,9 @@ public class AppActivity extends GameControllerActivity {
         //Nibiru SDK have already integrated with MOGA service.
         //this.connectController(DRIVERTYPE_MOGA);
         this.connectController(DRIVERTYPE_OUYA);
+		this.nativeOnCreate(this);
     }
+
+	private static native void nativeOnCreate(final Activity pActivity);
 }
 

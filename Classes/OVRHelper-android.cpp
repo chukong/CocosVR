@@ -13,7 +13,7 @@ OVRHelper::~OVRHelper()
 
 }
 
-void cocos_android_app_onCreate(JavaVM *vm, JNIEnv* env, jobject activity) {
+void cocos_android_app_onCreate(JNIEnv* env, jobject activity) {
 	CCLOG("cocos_android_app_onCreate Begin");
 	env->GetJavaVM(&OVRHelper::javaVM);
 	//OVRHelper::java.Vm->AttachCurrentThread(&OVRHelper::java.Env, NULL);
