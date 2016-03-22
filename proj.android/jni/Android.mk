@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
 $(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
-$(call import-add-path,$(OVRSDKMOBILEROOT))
+$(call import-add-path,$(DEEPOONSDKROOT))
 
 LOCAL_MODULE := cocos2dcpp_shared
 
@@ -34,10 +34,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static
-LOCAL_STATIC_LIBRARIES += systemutils
-LOCAL_STATIC_LIBRARIES += libovrkernel
 
-LOCAL_SHARED_LIBRARIES := vrapi
+LOCAL_SHARED_LIBRARIES := deepoon_sdk
 
 LOCAL_CPPFLAGS := -Wno-type-limits
 LOCAL_CPPFLAGS += -Wno-invalid-offsetof
@@ -50,9 +48,7 @@ LOCAL_CPPFLAGS += -DANDROID
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,.)
-$(call import-module,LibOVRKernel/Projects/AndroidPrebuilt/jni)
-$(call import-module,VrApi/Projects/AndroidPrebuilt/jni)
-$(call import-module,VrAppSupport/SystemUtils/Projects/AndroidPrebuilt/jni)
+$(call import-module,project/jni)
 
 # _COCOS_LIB_IMPORT_ANDROID_BEGIN
 # _COCOS_LIB_IMPORT_ANDROID_END

@@ -1,8 +1,8 @@
 #ifndef __OVR_HELPER_H__
 #define __OVR_HELPER_H__
 
-#define GEAR_VR 1
-#define DEEPOON 0
+#define GEAR_VR 0
+#define DEEPOON 1
 
 #include "cocos2d.h"
 #include <jni.h>
@@ -223,10 +223,10 @@ static bool dpnnFramebuffer_Create(dpnnFramebuffer * frameBuffer, const int widt
 	frameBuffer->DepthBuffers = (GLuint *)malloc(frameBuffer->TextureSwapNum * sizeof(GLuint));
 	frameBuffer->FrameBuffers = (GLuint *)malloc(frameBuffer->TextureSwapNum * sizeof(GLuint));
 
-	PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC glRenderbufferStorageMultisampleEXT =
-		(PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC)eglGetProcAddress("glRenderbufferStorageMultisampleEXT");
-	PFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC glFramebufferTexture2DMultisampleEXT =
-		(PFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC)eglGetProcAddress("glFramebufferTexture2DMultisampleEXT");
+	//PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC glRenderbufferStorageMultisampleEXT =
+	//	(PFNGLRENDERBUFFERSTORAGEMULTISAMPLEEXTPROC)eglGetProcAddress("glRenderbufferStorageMultisampleEXT");
+	//PFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC glFramebufferTexture2DMultisampleEXT =
+	//	(PFNGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXTPROC)eglGetProcAddress("glFramebufferTexture2DMultisampleEXT");
 
 	for (int i = 0; i < frameBuffer->TextureSwapNum; i++) {
 		// Create the color buffer texture.
@@ -240,35 +240,35 @@ static bool dpnnFramebuffer_Create(dpnnFramebuffer * frameBuffer, const int widt
 		GL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 		GL(glBindTexture(GL_TEXTURE_2D, 0));
 
-		if (multisamples > 1 && glRenderbufferStorageMultisampleEXT != NULL && glFramebufferTexture2DMultisampleEXT != NULL)
-		{
-			CCLOG("OVRHelper::Create multisampled buffers");
-			// Create multisampled depth buffer.
-			GL(glGenRenderbuffers(1, &frameBuffer->DepthBuffers[i]));
-			GL(glBindRenderbuffer(GL_RENDERBUFFER, frameBuffer->DepthBuffers[i]));
-			GL(glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER, multisamples, GL_DEPTH_COMPONENT24, width, height));
-			GL(glBindRenderbuffer(GL_RENDERBUFFER, 0));
+		//if (multisamples > 1 && glRenderbufferStorageMultisampleEXT != NULL && glFramebufferTexture2DMultisampleEXT != NULL)
+		//{
+		//	CCLOG("OVRHelper::Create multisampled buffers");
+		//	// Create multisampled depth buffer.
+		//	GL(glGenRenderbuffers(1, &frameBuffer->DepthBuffers[i]));
+		//	GL(glBindRenderbuffer(GL_RENDERBUFFER, frameBuffer->DepthBuffers[i]));
+		//	GL(glRenderbufferStorageMultisampleEXT(GL_RENDERBUFFER, multisamples, GL_DEPTH_COMPONENT24, width, height));
+		//	GL(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 
-			// Create the frame buffer.
-			GL(glGenFramebuffers(1, &frameBuffer->FrameBuffers[i]));
-			GL(glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer->FrameBuffers[i]));
-			GL(glFramebufferTexture2DMultisampleEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, frameBuffer->texIDs[i], 0, multisamples));
-			GL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, frameBuffer->DepthBuffers[i]));
-			GL(GLenum renderFramebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER));
-			GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-			if (renderFramebufferStatus != GL_FRAMEBUFFER_COMPLETE)
-			{
-				CCLOG("OVRHelper::Incomplete frame buffer object: %s", GlFrameBufferStatusString(renderFramebufferStatus));
-				return false;
-			}
-		}
-		else
+		//	// Create the frame buffer.
+		//	GL(glGenFramebuffers(1, &frameBuffer->FrameBuffers[i]));
+		//	GL(glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer->FrameBuffers[i]));
+		//	GL(glFramebufferTexture2DMultisampleEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, frameBuffer->texIDs[i], 0, multisamples));
+		//	GL(glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, frameBuffer->DepthBuffers[i]));
+		//	GL(GLenum renderFramebufferStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER));
+		//	GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+		//	if (renderFramebufferStatus != GL_FRAMEBUFFER_COMPLETE)
+		//	{
+		//		CCLOG("OVRHelper::Incomplete frame buffer object: %s", GlFrameBufferStatusString(renderFramebufferStatus));
+		//		return false;
+		//	}
+		//}
+		//else
 		{
 			CCLOG("OVRHelper::Create buffers");
 			// Create depth buffer.
 			GL(glGenRenderbuffers(1, &frameBuffer->DepthBuffers[i]));
 			GL(glBindRenderbuffer(GL_RENDERBUFFER, frameBuffer->DepthBuffers[i]));
-			GL(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height));
+			GL(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24_OES, width, height));
 			GL(glBindRenderbuffer(GL_RENDERBUFFER, 0));
 
 			// Create the frame buffer.
@@ -316,7 +316,7 @@ static void dpnnFramebuffer_Resolve(dpnnFramebuffer * frameBuffer)
 {
 	// Discard the depth buffer, so the tiler won't need to write it back out to memory.
 	const GLenum depthAttachment[1] = { GL_DEPTH_ATTACHMENT };
-	glInvalidateFramebuffer(GL_FRAMEBUFFER, 1, depthAttachment);
+	//glInvalidateFramebuffer(GL_FRAMEBUFFER, 1, depthAttachment);
 
 	// Flush this frame worth of commands.
 	glFlush();

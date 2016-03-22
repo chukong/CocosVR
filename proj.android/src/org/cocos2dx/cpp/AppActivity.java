@@ -44,6 +44,7 @@ public class AppActivity extends GameControllerActivity {
         //this.connectController(DRIVERTYPE_MOGA);
         this.connectController(DRIVERTYPE_OUYA);
 		this.nativeOnCreate(this);
+		System.loadLibrary("deepoon_sdk");
     }
 
 	private static native void nativeOnCreate(final Activity pActivity);
