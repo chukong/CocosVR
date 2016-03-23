@@ -4,11 +4,7 @@
 #include "P4F2.h"
 #include "Panther.h"
 #include "Tiger.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "OVRRenderer.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "OVRRenderer-android.h"
-#endif
 #include "PlayerController.h"
 #include "physics3d/CCPhysics3D.h"
 #include "3d/CCBundle3D.h"

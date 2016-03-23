@@ -24,9 +24,6 @@
     <ClCompile Include="..\Classes\M24.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\OVRRenderer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\P4F2.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Tiger.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OVRRenderer-oculus.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +78,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Tiger.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OVRRenderer-oculus.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
