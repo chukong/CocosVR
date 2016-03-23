@@ -147,6 +147,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\M24.cpp" />
+    <ClCompile Include="..\Classes\OVRRenderer-oculus.cpp" />
     <ClCompile Include="..\Classes\OVRRenderer.cpp" />
     <ClCompile Include="..\Classes\P4F2.cpp" />
     <ClCompile Include="..\Classes\Panther.cpp" />
@@ -160,6 +161,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\M24.h" />
+    <ClInclude Include="..\Classes\OVRRenderer-oculus.h" />
     <ClInclude Include="..\Classes\OVRRenderer.h" />
     <ClInclude Include="..\Classes\P4F2.h" />
     <ClInclude Include="..\Classes\Panther.h" />

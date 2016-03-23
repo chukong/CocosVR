@@ -45,6 +45,9 @@
     <ClCompile Include="..\Classes\Tiger.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\OVRRenderer-oculus.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -78,6 +81,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Tiger.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OVRRenderer-oculus.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
