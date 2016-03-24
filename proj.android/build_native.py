@@ -27,6 +27,14 @@ def build(build_mode):
     if os.system(command) != 0:
         raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
 
+def vrPlatform(vr_platform):
+    
+    if vr_platform is None or vr_platform == 'gearvr':
+        os.environ["VR_PLATFORM"] = 'GEAR_VR'
+    elif vr_platform != 'gearvr':
+        os.environ["VR_PLATFORM"] = 'DEEPOON_VR'
+    os.system('copyVRlibs.bat')
+
 # -------------- main --------------
 if __name__ == '__main__':
 
@@ -36,8 +44,10 @@ if __name__ == '__main__':
     help='it is not used')
     parser.add_option("-b", "--build", dest="build_mode", 
     help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
+    parser.add_option("-V", "--vrplatform", dest="vr_platform", help='define vr platform (gearvr/deepoon)')
     (opts, args) = parser.parse_args()
     
     print "Please use cocos console instead.\n"
     
+    vrPlatform(opts.vr_platform)
     build(opts.build_mode)

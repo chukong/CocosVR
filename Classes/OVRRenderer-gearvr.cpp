@@ -37,6 +37,11 @@ void cocos_android_app_onCreate(JNIEnv* env, jobject activity) {
 	CCLOG("cocos_android_app_onCreate End");
 }
 
+jstring cocos_android_app_onLoadLibraryName(JNIEnv* env) {
+	CCLOG("cocos_android_app_onLoadLibraryName");
+	return NULL;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #define NUM_MULTI_SAMPLES	4

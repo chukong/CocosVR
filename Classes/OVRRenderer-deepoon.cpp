@@ -12,6 +12,16 @@ public:
 	static jobject activity;
 };
 
+jstring stoJstring(JNIEnv* env, const char* pat)
+{
+	jclass strClass = env->FindClass("Ljava/lang/String;");
+	jmethodID ctorID = env->GetMethodID(strClass, "<init>", "([BLjava/lang/String;)V");
+	jbyteArray bytes = env->NewByteArray(strlen(pat));
+	env->SetByteArrayRegion(bytes, 0, strlen(pat), (jbyte*)pat);
+	jstring encoding = env->NewStringUTF("utf-8");
+	return (jstring)env->NewObject(strClass, ctorID, bytes, encoding);
+}
+
 JavaVM * OVRHelper::javaVM = nullptr;
 jobject OVRHelper::activity = 0;
 
@@ -21,6 +31,11 @@ void cocos_android_app_onCreate(JNIEnv* env, jobject activity) {
 	//OVRHelper::java.Vm->AttachCurrentThread(&OVRHelper::java.Env, NULL);
 	OVRHelper::activity = env->NewGlobalRef(activity);
 	CCLOG("cocos_android_app_onCreate End");
+}
+
+jstring cocos_android_app_onLoadLibraryName(JNIEnv* env) {
+	CCLOG("cocos_android_app_onLoadLibraryName");
+	return env->NewStringUTF("deepoon_sdk");
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

@@ -43,10 +43,14 @@ public class AppActivity extends GameControllerActivity {
         //Nibiru SDK have already integrated with MOGA service.
         //this.connectController(DRIVERTYPE_MOGA);
         this.connectController(DRIVERTYPE_OUYA);
+        String libName = this.nativeOnLoadLibraryName();
+        if (libName != null && !libName.isEmpty()){
+            System.loadLibrary(libName);
+        }
         this.nativeOnCreate(this);
-        System.loadLibrary("deepoon_sdk");
     }
 
     private static native void nativeOnCreate(final Activity pActivity);
+    private static native String nativeOnLoadLibraryName();
 }
 

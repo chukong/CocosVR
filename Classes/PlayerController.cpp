@@ -1,9 +1,5 @@
 #include "PlayerController.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "OVRRenderer.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-#include "OVRRenderer-android.h"
-#endif
 #include "Tank.h"
 #include "SimpleAudioEngine.h"
 #include "base/CCEventListenerController.h"
