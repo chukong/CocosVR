@@ -29,11 +29,17 @@ def build(build_mode):
 
 def vrPlatform(vr_platform):
     
+    if os.path.exists("./libs"):
+        shutil.rmtree("./libs")
+    os.mkdir("./libs")
     if vr_platform is None or vr_platform == 'gearvr':
         os.environ["VR_PLATFORM"] = 'GEAR_VR'
+        shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrApi/Libs/Android/VrApi.jar", "./libs")
+        shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrAppSupport/SystemUtils/Libs/Android/SystemUtils.jar", "./libs")
     elif vr_platform != 'gearvr':
         os.environ["VR_PLATFORM"] = 'DEEPOON_VR'
-    os.system('copyVRlibs.bat')
+        shutil.copy(os.environ["DEEPOONSDKROOT"] + "lib/deepoon_sdk.jar", "./libs")
+    #os.system('copyVRlibs.bat')
 
 # -------------- main --------------
 if __name__ == '__main__':
