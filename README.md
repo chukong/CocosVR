@@ -45,12 +45,13 @@ This project supports Three VR platforms: **Oculus VR**(win32), **Gear VR** and 
 
 ###SDK Requires
 OculusVR PC **SDK V0.8**.
+>Requires compile the SDK source code by VS2015 and build **/MD(release) and /MDd(debug) Runtime Library**
 
 OculusVR Mobile **SDK V1.0.0.1**.
 
 Deepoon Mobile **SDK V0.1.2**.
 
-###environment variables
+###Environment Variables
 **OVRSDKROOT:**  PATH/
 
 **OVRSDKMOBILEROOT:** PATH/
