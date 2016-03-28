@@ -14,7 +14,7 @@ This repository is a sample game showing how to run a cocos 3D game on VR platfo
 1.Clone the repo from Github
 
 ```
-$ git clone https://github.com/songchengjiang/cocosVR.git
+$ git clone https://github.com/chukong/CocosVR.git
 ```
 
 2.Update the submodule of cocosVR
@@ -70,7 +70,7 @@ execute `build_native.py -V gearvr` for **Gear VR platforms**
 execute `build_native.py -V deepoon` for **Deepoon VR platforms**
 
 ##Credits
-* Game Effects: Jiang SongCheng
-* Game Logic: Jiang SongCheng
-* Game Sound: Jiang SongCheng
-* VR technical support: Jiang SongCheng, Xu HuaBing, etc
+* Game Effects: SongCheng Jiang
+* Game Logic: SongCheng Jiang
+* Game Sound: SongCheng Jiang
+* VR technical support: SongCheng Jiang, HuaBing Xu, etc
