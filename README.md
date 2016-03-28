@@ -1,11 +1,11 @@
 CocosVR
 ================
 
-CocosVR is a sample game showing how to run a cocos 3D game on VR platforms. This sample game is using cocos2d-x v3.10
+This repository is a sample game showing how to run a cocos 3D game on VR platforms. The sample game is using cocos2d-x v3.10.
 
-Copyright: Chukong Technologies
-Source Code License: MIT
-Artwork License: You may not use any artworks in this sample game for commercial purpose
+- Copyright: Chukong Technologies
+- Source Code License: MIT
+- Artwork License: You may not use any artworks in this sample game for commercial purpose
 
 ![](Screenshot.png)
 
