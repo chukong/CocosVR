@@ -1,13 +1,11 @@
-cocosVR
+CocosVR
 ================
 
-cocosVR is a demo for show how to run a cocos2d game on VR platform
+This repository is a sample game showing how to run a cocos 3D game on VR platforms. The sample game is using cocos2d-x v3.10.
 
-cocosVR is a showcase project using cocos2d-x 3.10
-
-The code of this project and Cocos2d-x are all licensed under MIT
-
-You may not use any art including 2d and 3d from this project for commercial purpose
+- Copyright: Chukong Technologies
+- Source Code License: MIT
+- Artwork License: You may not use any artworks in this sample game for commercial purpose
 
 ![](Screenshot.png)
 
@@ -16,7 +14,7 @@ You may not use any art including 2d and 3d from this project for commercial pur
 1.Clone the repo from Github
 
 ```
-$ git clone https://github.com/songchengjiang/cocosVR.git
+$ git clone https://github.com/chukong/CocosVR.git
 ```
 
 2.Update the submodule of cocosVR
@@ -72,7 +70,7 @@ execute `build_native.py -V gearvr` for **Gear VR platforms**
 execute `build_native.py -V deepoon` for **Deepoon VR platforms**
 
 ##Credits
-* Game Effects: Jiang SongCheng
-* Game Logic: Jiang SongCheng
-* Game Sound: Jiang SongCheng
-* VR technical support: Jiang SongCheng, Xu HuaBing, etc
+* Game Effects: SongCheng Jiang
+* Game Logic: SongCheng Jiang
+* Game Sound: SongCheng Jiang
+* VR technical support: SongCheng Jiang, HuaBing Xu, etc
