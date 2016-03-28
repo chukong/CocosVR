@@ -10,6 +10,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cocosvr">
+      <UniqueIdentifier>{633ecd33-3ee9-485f-b2f6-eb05ef43d941}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,8 +45,8 @@
     <ClCompile Include="..\Classes\Tiger.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\OVRRenderer-oculus.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\cocosvr\OVRRenderer-oculus.cpp">
+      <Filter>cocosvr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +60,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\M24.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\OVRRenderer.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\P4F2.h">
@@ -80,8 +80,11 @@
     <ClInclude Include="..\Classes\Tiger.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\OVRRenderer-oculus.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\cocosvr\OVRRenderer.h">
+      <Filter>cocosvr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cocosvr\OVRRenderer-oculus.h">
+      <Filter>cocosvr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

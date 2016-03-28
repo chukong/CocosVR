@@ -19,6 +19,7 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 ifeq ($(VR_PLATFORM),GEAR_VR)
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
+                   ../../cocosvr/OVRRenderer-gearvr.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/M24.cpp \
@@ -26,16 +27,17 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Panther.cpp \
                    ../../Classes/Tank.cpp \
                    ../../Classes/Tiger.cpp \
-                   ../../Classes/OVRRenderer-gearvr.cpp \
                    ../../Classes/PlayerController.cpp \
                    ../../Classes/ProgressView.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+                    $(LOCAL_PATH)/../../cocosvr \
                     $(OVRSDKMOBILEROOT)VrApi/Include \
                     $(OVRSDKMOBILEROOT)VrAppSupport/SystemUtils/Include
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
+                   ../../cocosvr/OVRRenderer-deepoon.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../Classes/HelloWorldScene.cpp \
                    ../../Classes/M24.cpp \
@@ -43,11 +45,11 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/Panther.cpp \
                    ../../Classes/Tank.cpp \
                    ../../Classes/Tiger.cpp \
-                   ../../Classes/OVRRenderer-deepoon.cpp \
                    ../../Classes/PlayerController.cpp \
                    ../../Classes/ProgressView.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+                    $(LOCAL_PATH)/../../cocosvr \
                     $(DEEPOONSDKROOT)include
 endif
 
