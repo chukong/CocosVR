@@ -42,7 +42,7 @@ OculusVR Mobile **SDK V1.0.0.1**.
 
 Deepoon Mobile **SDK V0.1.2**.
 
->**Important**: Requires download **oculus signature file** for your mobile device, see oculus official documentation
+>**Important**: Requires download **oculus signature file** for your mobile device **from oculus official website**, see oculus official documentation for more information
 
 ###Environment Variables
 **OVRSDKROOT:**  PATH/
