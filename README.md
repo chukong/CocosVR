@@ -69,6 +69,9 @@ execute `build_native.py -V gearvr` for **Gear VR platforms**
 
 execute `build_native.py -V deepoon` for **Deepoon VR platforms**
 
+##Create New VR Project
+execute `createNewProject.py [-n PROJECT_NAME] [-p PROJECT_PATH]`
+
 ##Credits
 * Game Effects: SongCheng Jiang
 * Game Logic: SongCheng Jiang
