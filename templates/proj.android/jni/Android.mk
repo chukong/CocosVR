@@ -21,14 +21,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
                    ../../cocosvr/OVRRenderer-gearvr.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp \
-                   ../../Classes/M24.cpp \
-                   ../../Classes/P4F2.cpp \
-                   ../../Classes/Panther.cpp \
-                   ../../Classes/Tank.cpp \
-                   ../../Classes/Tiger.cpp \
-                   ../../Classes/PlayerController.cpp \
-                   ../../Classes/ProgressView.cpp
+                   ../../Classes/HelloWorldScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../cocosvr \
@@ -39,14 +32,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
                    ../../cocosvr/OVRRenderer-deepoon.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp \
-                   ../../Classes/M24.cpp \
-                   ../../Classes/P4F2.cpp \
-                   ../../Classes/Panther.cpp \
-                   ../../Classes/Tank.cpp \
-                   ../../Classes/Tiger.cpp \
-                   ../../Classes/PlayerController.cpp \
-                   ../../Classes/ProgressView.cpp
+                   ../../Classes/HelloWorldScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../cocosvr \
