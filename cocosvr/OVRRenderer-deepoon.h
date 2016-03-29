@@ -107,7 +107,7 @@ static bool dpnnFramebuffer_Create(dpnnFramebuffer * frameBuffer, const int widt
 			GL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 			if (renderFramebufferStatus != GL_FRAMEBUFFER_COMPLETE)
 			{
-				CCLOG("OVRHelper::Incomplete frame buffer object: %s", GlFrameBufferStatusString(renderFramebufferStatus));
+				CCLOG("OVRHelper::Incomplete frame buffer object");
 				return false;
 			}
 		}

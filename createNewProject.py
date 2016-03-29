@@ -1,4 +1,3 @@
-
 import sys
 import os, os.path
 import shutil
@@ -23,5 +22,8 @@ if __name__ == '__main__':
         path = opts.proj_path
 
     new_path = os.path.join(path, name)
-    shutil.copytree("./cocosvr", new_path)
     shutil.copytree("./templates", new_path)
+    vr_path = os.path.join(new_path, 'cocosvr')
+    shutil.copytree("./cocosvr", vr_path)
+    cocos_path = os.path.join(new_path, 'cocos2d')
+    shutil.copytree("./cocos2d", cocos_path)
