@@ -18,9 +18,121 @@ def add_path_prefix(path_str):
     ret = ret.replace("/", "\\")
     return ret
 
-def copy_engine(dst):
+def replace_string(filepath, src_string, dst_string):
+    """ From file's content replace specified string
+    Arg:
+        filepath: Specify a file contains the path
+        src_string: old string
+        dst_string: new string
+    """
+    if src_string is None or dst_string is None:
+        raise TypeError
 
-    src = './cocos2d'
+    content = ""
+    f1 = open(filepath, "rb")
+    for line in f1:
+        strline = line.decode('utf8')
+        if src_string in strline:
+            content += strline.replace(src_string, dst_string)
+        else:
+            content += strline
+    f1.close()
+    f2 = open(filepath, "wb")
+    f2.write(content.encode('utf8'))
+    f2.close()
+# end of replace_string
+
+def project_rename(dir, name, v):
+
+    dst_project_dir = dir
+    dst_project_name = name
+    src_project_name = v['src_project_name']
+    if dst_project_name == src_project_name:
+        return
+
+    files = v['files']
+    for f in files:
+        src = f.replace("PROJECT_NAME", src_project_name)
+        dst = f.replace("PROJECT_NAME", dst_project_name)
+        src_file_path = os.path.join(dst_project_dir, src)
+        dst_file_path = os.path.join(dst_project_dir, dst)
+        if os.path.exists(src_file_path):
+            if dst_project_name.lower() == src_project_name.lower():
+                temp_file_path = "%s-temp" % src_file_path
+                os.rename(src_file_path, temp_file_path)
+                os.rename(temp_file_path, dst_file_path)
+            else:
+                if os.path.exists(dst_file_path):
+                    os.remove(dst_file_path)
+                os.rename(src_file_path, dst_file_path)
+
+def project_replace_project_name(dir, name, v):
+
+    dst_project_dir = dir
+    dst_project_name = name
+    src_project_name = v['src_project_name']
+    if dst_project_name == src_project_name:
+        return
+
+    files = v['files']
+    for f in files:
+        dst = f.replace("PROJECT_NAME", dst_project_name)
+        if os.path.exists(os.path.join(dst_project_dir, dst)):
+            replace_string(
+                os.path.join(dst_project_dir, dst), src_project_name, dst_project_name)
+
+def project_replace_package_name(dir, name, v):
+
+    dst_project_dir = dir
+    dst_project_name = name
+    src_package_name = v['src_package_name']
+    dst_package_name = 'org.cocos2dx.' + name
+    if dst_package_name == src_package_name:
+        return
+
+    files = v['files']
+    for f in files:
+        dst = f.replace("PROJECT_NAME", dst_project_name)
+        if os.path.exists(os.path.join(dst_project_dir, dst)):
+            replace_string(
+                os.path.join(dst_project_dir, dst), src_package_name, dst_package_name)
+
+def project_replace_mac_bundleid(dir, name, v):
+
+    dst_project_dir = dir
+    dst_project_name = name
+    src_bundleid = v['src_bundle_id']
+    dst_bundleid = 'org.cocos2dx.' + name
+    if src_bundleid == dst_bundleid:
+        return
+
+    files = v['files']
+    for f in files:
+        dst = f.replace("PROJECT_NAME", dst_project_name)
+        if os.path.exists(os.path.join(dst_project_dir, dst)):
+            replace_string(
+                os.path.join(dst_project_dir, dst), src_bundleid, dst_bundleid)
+
+def project_replace_ios_bundleid(dir, name, v):
+
+    dst_project_dir = dir
+    dst_project_name = name
+    src_bundleid = v['src_bundle_id']
+    dst_bundleid = 'org.cocos2dx.' + name
+    if src_bundleid == dst_bundleid:
+        return
+
+    files = v['files']
+    for f in files:
+        dst = f.replace("PROJECT_NAME", dst_project_name)
+        if os.path.exists(os.path.join(dst_project_dir, dst)):
+            replace_string(
+                os.path.join(dst_project_dir, dst), src_bundleid, dst_bundleid)
+
+def append_x_engine(src_dir, dst_dir, v):
+
+    src = os.path.join(src_dir, v['from'])
+    dst = os.path.join(dst_dir, v['to'])
 
     cocosx_files_json = os.path.join(src, 'templates', 'cocos2dx_files.json')
 
@@ -75,5 +187,15 @@ if __name__ == '__main__':
     shutil.copytree("./templates", new_path)
     vr_path = os.path.join(new_path, 'cocosvr')
     shutil.copytree("./cocosvr", vr_path)
-    cocos_path = os.path.join(new_path, 'cocos2d')
-    copy_engine(cocos_path)
+
+    f = open('cocos-project-template.json')
+    data = json.load(f)
+    f.close()
+    do_default = data['do_default']
+    #cocos_path = os.path.join(new_path, 'cocos2d')
+    append_x_engine('', new_path, do_default['append_x_engine'])
+    project_rename(new_path, name, do_default['project_rename'])
+    project_replace_project_name(new_path, name, do_default['project_replace_project_name'])
+    project_replace_package_name(new_path, name, do_default['project_replace_package_name'])
+    project_replace_mac_bundleid(new_path, name, do_default['project_replace_mac_bundleid'])
+    project_replace_ios_bundleid(new_path, name, do_default['project_replace_ios_bundleid'])
