@@ -53,12 +53,14 @@ Deepoon Mobile **SDK V0.1.2**.
 
 > PATH means the absolute path of SDK root directory
 
+###Run Sample
+
 ###win32 runtime
-Path: `cocosVR/proj.win32/cocosVR.sln`.
+Path: `cocosVR/samples/proj.win32/cocosVR.sln`.
 >Requires Visual Studio 2015 and above.
 
 ###android runtime
-Path: `cocosVR/proj.android/`.
+Path: `cocosVR/samples/proj.android/`.
 
 execute `build_native.py -V gearvr` for **Gear VR platforms**
 
