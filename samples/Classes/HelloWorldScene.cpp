@@ -169,8 +169,9 @@ bool HelloWorld::init()
 #ifndef NDEBUG
 	//FIXME: NavMesh will crash on armeabi-v7a DEBUG mode,but work well on RELEASE mode
 	CCLOG("NAVMESH CAN NOT RUNNING ON ARMEABI-V7A DEBUG MODE, USE RELEASE MODE INSTEAD");
-#endif
+#else
 	CREATE_NAV_MESH()
+#endif
 #else
 	CREATE_NAV_MESH()
 #endif
