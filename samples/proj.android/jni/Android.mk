@@ -2,9 +2,9 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d)
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d/external)
-$(call import-add-path,$(LOCAL_PATH)/../../cocos2d/cocos)
+$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d)
+$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/external)
+$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/cocos)
 
 ifeq ($(VR_PLATFORM),GEAR_VR)
 $(call import-add-path,$(OVRSDKMOBILEROOT))
@@ -31,7 +31,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ProgressView.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
-                    $(LOCAL_PATH)/../../cocosvr \
+                    $(LOCAL_PATH)/../../../cocosvr \
                     $(OVRSDKMOBILEROOT)VrApi/Include \
                     $(OVRSDKMOBILEROOT)VrAppSupport/SystemUtils/Include
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
@@ -49,7 +49,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/ProgressView.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
-                    $(LOCAL_PATH)/../../cocosvr \
+                    $(LOCAL_PATH)/../../../cocosvr \
                     $(DEEPOONSDKROOT)include
 endif
 

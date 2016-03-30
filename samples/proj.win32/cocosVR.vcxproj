@@ -38,13 +38,13 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
-    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+    <Import Project="..\..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\..\cocos2d\cocos\2d\cocos2d_headers.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\cocos2d\cocos\2d\cocos2dx.props" />
-    <Import Project="..\cocos2d\cocos\2d\cocos2d_headers.props" />
+    <Import Project="..\..\cocos2d\cocos\2d\cocos2dx.props" />
+    <Import Project="..\..\cocos2d\cocos\2d\cocos2d_headers.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -71,7 +71,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\cocosvr;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);$(OVRSDKROOT)LibOVR/Include/;$(OVRSDKROOT)LibOVRKernel/Src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\..\cocosvr;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);$(OVRSDKROOT)LibOVR/Include/;$(OVRSDKROOT)LibOVRKernel/Src/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;OCULUS_VR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -113,7 +113,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\cocosvr;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);$(OVRSDKROOT)LibOVR/Include/;$(OVRSDKROOT)LibOVRKernel/Src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineRoot);$(EngineRoot)cocos\audio\include;$(EngineRoot)external;$(EngineRoot)external\chipmunk\include\chipmunk;$(EngineRoot)extensions;..\Classes;..\..\cocosvr;..;%(AdditionalIncludeDirectories);$(_COCOS_HEADER_WIN32_BEGIN);$(_COCOS_HEADER_WIN32_END);$(OVRSDKROOT)LibOVR/Include/;$(OVRSDKROOT)LibOVRKernel/Src/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USE_MATH_DEFINES;GL_GLEXT_PROTOTYPES;CC_ENABLE_CHIPMUNK_INTEGRATION=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;OCULUS_VR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -153,7 +153,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\ProgressView.cpp" />
     <ClCompile Include="..\Classes\Tank.cpp" />
     <ClCompile Include="..\Classes\Tiger.cpp" />
-    <ClCompile Include="..\cocosvr\OVRRenderer-oculus.cpp" />
+    <ClCompile Include="..\..\cocosvr\OVRRenderer-oculus.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,19 +166,19 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\ProgressView .h" />
     <ClInclude Include="..\Classes\Tank.h" />
     <ClInclude Include="..\Classes\Tiger.h" />
-    <ClInclude Include="..\cocosvr\OVRRenderer-oculus.h" />
-    <ClInclude Include="..\cocosvr\OVRRenderer.h" />
+    <ClInclude Include="..\..\cocosvr\OVRRenderer-oculus.h" />
+    <ClInclude Include="..\..\cocosvr\OVRRenderer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">
+    <ProjectReference Include="..\..\cocos2d\cocos\2d\libcocos2d.vcxproj">
       <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
+    <ProjectReference Include="..\..\cocos2d\cocos\editor-support\spine\proj.win32\libSpine.vcxproj">
       <Project>{b7c2a162-dec9-4418-972e-240ab3cbfcae}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\cocos2d\external\Box2D\proj.win32\libbox2d.vcxproj">
+    <ProjectReference Include="..\..\cocos2d\external\Box2D\proj.win32\libbox2d.vcxproj">
       <Project>{929480e7-23c0-4df6-8456-096d71547116}</Project>
     </ProjectReference>
   </ItemGroup>
