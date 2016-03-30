@@ -23,14 +23,7 @@ $ git clone https://github.com/chukong/CocosVR.git
 $ git submodule update --init
 ```
 
-3.Update the submodule of cocos2d-x
-
-```
-$ cd cocos2d
-$ git submodule update --init
-```
-
-4.After cloning the repo, please execute `download-deps.py` to download and install dependencies
+3.After cloning the repo, please execute `download-deps.py` to download and install dependencies
 
 ```
 $ cd cocos2d
@@ -49,21 +42,25 @@ OculusVR Mobile **SDK V1.0.0.1**.
 
 Deepoon Mobile **SDK V0.1.2**.
 
+>**Important**: Requires download **oculus signature file** for your mobile device **from oculus official website**, see oculus official documentation for more information
+
 ###Environment Variables
 **OVRSDKROOT:**  PATH/
 
 **OVRSDKMOBILEROOT:** PATH/
 
-**DEEPOONSDKROOT:** PATH/samples/samples/native/SDKLib/
+**DEEPOONSDKROOT:** **PATH/samples/samples/native/SDKLib/**
 
 > PATH means the absolute path of SDK root directory
 
+##Run Demo
+
 ###win32 runtime
-Path: `cocosVR/proj.win32/cocosVR.sln`.
+Path: `cocosVR/samples/proj.win32/cocosVR.sln`.
 >Requires Visual Studio 2015 and above.
 
 ###android runtime
-Path: `cocosVR/proj.android/`.
+Path: `cocosVR/samples/proj.android/`.
 
 execute `build_native.py -V gearvr` for **Gear VR platforms**
 
