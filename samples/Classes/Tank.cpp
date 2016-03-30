@@ -133,6 +133,8 @@ bool Tank::initFrom(const NodeDatas& nodeDatas, const MeshDatas& meshdatas, cons
 	//_skeleton = Skeleton3D::create(nodeDatas.skeleton);
 	//CC_SAFE_RETAIN(_skeleton);
 
+
+	_meshes.clear();
 	this->removeAllChildren();
 	for (const auto& it : nodeDatas.nodes)
 	{
@@ -141,13 +143,13 @@ bool Tank::initFrom(const NodeDatas& nodeDatas, const MeshDatas& meshdatas, cons
 			createNode(it, this, materialdatas, nodeDatas.nodes.size() == 1);
 		}
 	}
-	//for (const auto& it : nodeDatas.skeleton)
-	//{
-	//	if (it)
-	//	{
-	//		createAttachSprite3DNode(it, materialdatas);
-	//	}
-	//}
+	for (const auto& it : nodeDatas.skeleton)
+	{
+		if (it)
+		{
+			createAttachSprite3DNode(it, materialdatas);
+		}
+	}
 	genMaterial();
 
 	return true;
