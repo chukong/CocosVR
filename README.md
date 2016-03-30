@@ -53,7 +53,7 @@ Deepoon Mobile **SDK V0.1.2**.
 
 > PATH means the absolute path of SDK root directory
 
-###Run Sample
+##Run Demo
 
 ###win32 runtime
 Path: `cocosVR/samples/proj.win32/cocosVR.sln`.
