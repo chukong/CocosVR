@@ -161,9 +161,19 @@ bool HelloWorld::init()
 	//	this->setPhysics3DDebugCamera(camera);
 	//}
 
-	auto navMesh = NavMesh::create("NavMesh/all_tiles_tilecache.bin", "NavMesh/geomset.txt");
-	navMesh->setDebugDrawEnable(false);
+#define CREATE_NAV_MESH() \
+	auto navMesh = NavMesh::create("NavMesh/all_tiles_tilecache.bin", "NavMesh/geomset.txt"); \
+	navMesh->setDebugDrawEnable(false); \
 	setNavMesh(navMesh);
+#if CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#ifndef NDEBUG
+	//FIXME: NavMesh will crash on armeabi-v7a DEBUG mode,but work well on RELEASE mode
+	CCLOG("NAVMESH CAN NOT RUNNING ON ARMEABI-V7A DEBUG MODE, USE RELEASE MODE INSTEAD");
+#endif
+	CREATE_NAV_MESH()
+#else
+	CREATE_NAV_MESH()
+#endif
 
 	auto pc = PlayerController::create();
 	this->addChild(pc);
