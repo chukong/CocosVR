@@ -1,4 +1,5 @@
 #include "Tank.h"
+#include "3d/CCBundle3D.h"
 
 USING_NS_CC;
 
@@ -118,19 +119,23 @@ bool Tank::initWithFile(const std::string& path)
 
 bool Tank::initFrom(const NodeDatas& nodeDatas, const MeshDatas& meshdatas, const MaterialDatas& materialdatas)
 {
-	for (const auto& it : meshdatas.meshDatas)
-	{
-		if (it)
-		{
-			//            Mesh* mesh = Mesh::create(*it);
-			//            _meshes.pushBack(mesh);
-			auto meshvertex = MeshVertexData::create(*it);
-			_meshVertexDatas.pushBack(meshvertex);
-		}
-	}
-	_skeleton = Skeleton3D::create(nodeDatas.skeleton);
-	CC_SAFE_RETAIN(_skeleton);
+	Sprite3D::initFrom(nodeDatas, meshdatas, materialdatas);
+	//for (const auto& it : meshdatas.meshDatas)
+	//{
+	//	if (it)
+	//	{
+	//		//            Mesh* mesh = Mesh::create(*it);
+	//		//            _meshes.pushBack(mesh);
+	//		auto meshvertex = MeshVertexData::create(*it);
+	//		_meshVertexDatas.pushBack(meshvertex);
+	//	}
+	//}
+	//_skeleton = Skeleton3D::create(nodeDatas.skeleton);
+	//CC_SAFE_RETAIN(_skeleton);
 
+
+	_meshes.clear();
+	this->removeAllChildren();
 	for (const auto& it : nodeDatas.nodes)
 	{
 		if (it)

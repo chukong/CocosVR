@@ -62,12 +62,16 @@ Path: `cocosVR/samples/proj.win32/cocosVR.sln`.
 ###android runtime
 Path: `cocosVR/samples/proj.android/`.
 
-execute `build_native.py -V gearvr` for **Gear VR platforms**
+execute `build_native.py -V gearvr [-b release]` for **Gear VR platforms**
 
-execute `build_native.py -V deepoon` for **Deepoon VR platforms**
+execute `build_native.py -V deepoon [-b release]` for **Deepoon VR platforms**
+
+>Suggest using release mode to build demo
 
 ##Create New VR Project
 execute `createNewProject.py [-n PROJECT_NAME] [-p PROJECT_PATH]`
+
+>Building Project as mentioned above
 
 ##Credits
 * Game Effects: SongCheng Jiang
