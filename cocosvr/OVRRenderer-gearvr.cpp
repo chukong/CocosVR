@@ -1,3 +1,5 @@
+#if defined(GEAR_VR)
+
 #include "OVRRenderer-gearvr.h"
 
 USING_NS_CC;
@@ -264,3 +266,5 @@ void OVRRenderer::setOffsetRot(const cocos2d::Quaternion &rot)
 {
 	_offsetRot *= rot;
 }
+
+#endif // defined(GEAR_VR)
