@@ -4,6 +4,7 @@
 
 class OVRRenderer : public cocos2d::Node
 {
+    static const int EYE_NUM = 2;
 public:
 	OVRRenderer();
 	~OVRRenderer();
@@ -18,10 +19,24 @@ public:
 private:
 
 	bool init(cocos2d::CameraFlag flag);
+    int setupRenderTextureAndRenderbuffer(int width, int height);
 	void onBeginDraw();
 	void onEndDraw();
 
 private:
+    cocos2d::Camera* _eyeCamera[EYE_NUM];
+    cocos2d::Vec3       _offsetPos;
+    cocos2d::Quaternion _offsetRot;
+
+    GLint _framebufferId;
+    GLint _textureId;
+    GLint _renderbufferId;
+    int _viewport[4];
+    GLboolean _cullFaceEnabled;
+    GLboolean _scissorTestEnabled;
+
+    cocos2d::CustomCommand _beginRenderCommand;
+    cocos2d::CustomCommand _endRenderCommand;
 };
 
 
