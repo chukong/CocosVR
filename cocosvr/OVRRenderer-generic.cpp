@@ -1,5 +1,9 @@
 #include "OVRRenderer-generic.h"
 #include "platform/CCGL.h"
+#include "DistortionMesh.h"
+#include "HeadMountedDisplay.h"
+#include "CardboardDeviceParams.h"
+#include "ScreenParams.h"
 
 USING_NS_CC;
 
@@ -31,6 +35,8 @@ OVRRenderer::OVRRenderer()
 
 OVRRenderer::~OVRRenderer()
 {
+    delete _leftEyeDistortionMesh;
+    delete _rightEyeDistortionMesh;
 }
 
 bool OVRRenderer::init(cocos2d::CameraFlag flag)
@@ -46,13 +52,51 @@ bool OVRRenderer::init(cocos2d::CameraFlag flag)
                                                     (float)EYE_BUFFER_SIZE / (float)EYE_BUFFER_SIZE,
                                                     0.1f, 5000.0f);
         _eyeCamera[eye]->setCameraFlag(flag);
-        this->addChild(_eyeCamera[eye]);
+        addChild(_eyeCamera[eye]);
     }
 
-    this->setCameraMask((unsigned short)flag);
+    setCameraMask((unsigned short)flag);
+
+    setupGLProgram();
+    setupRenderTextureAndRenderbuffer(1024, 1024);
+    updateTextureAndDistortionMesh();
+    
     update(0.0f);
     scheduleUpdate();
     return true;
+}
+
+void OVRRenderer::setupGLProgram()
+{
+    const GLchar *vertexShader =
+    "\
+    attribute vec2 a_position;\n\
+    attribute float a_vignette;\n\
+    attribute vec2 a_blueTextureCoord;\n\
+    varying vec2 v_textureCoord;\n\
+    varying float v_vignette;\n\
+    uniform float u_textureCoordScale;\n\
+    void main() {\n\
+    gl_Position = vec4(a_position, 0.0, 1.0);\n\
+    v_textureCoord = a_blueTextureCoord.xy * u_textureCoordScale;\n\
+    v_vignette = a_vignette;\n\
+    }\n";
+
+    const GLchar *fragmentShader =
+    "\
+#ifdef GL_ES\n\
+    precision mediump float;\n\
+#endif\n\
+    varying vec2 v_textureCoord;\n\
+    varying float v_vignette;\n\
+    uniform sampler2D u_textureSampler;\n\
+    void main() {\n\
+    gl_FragColor = v_vignette * texture2D(u_textureSampler, v_textureCoord);\n\
+    }\n";
+
+    auto glprogramstate = GLProgramState::getOrCreateWithShaders(vertexShader, fragmentShader, "");
+
+    setGLProgramState(glprogramstate);
 }
 
 int OVRRenderer::setupRenderTextureAndRenderbuffer(int width, int height)
@@ -100,6 +144,52 @@ int OVRRenderer::setupRenderTextureAndRenderbuffer(int width, int height)
     CHECK_GL_ERROR_DEBUG();
 
     return _framebufferId;
+}
+
+void OVRRenderer::updateTextureAndDistortionMesh()
+{
+    float textureWidthTanAngle = _leftEyeViewport.width + _rightEyeViewport.width;
+    float textureHeightTanAngle = MAX(_leftEyeViewport.height, _rightEyeViewport.height);
+
+    float xEyeOffsetTanAngleScreen = 0.33;
+    float yEyeOffsetTanAngleScreen = 0.69;
+    _leftEyeDistortionMesh = createDistortionMesh(_leftEyeViewport,
+                                                  textureWidthTanAngle,
+                                                  textureHeightTanAngle,
+                                                  xEyeOffsetTanAngleScreen,
+                                                  yEyeOffsetTanAngleScreen);
+
+    xEyeOffsetTanAngleScreen = 1.76;
+
+    _rightEyeDistortionMesh = createDistortionMesh(_rightEyeViewport,
+                                                   textureWidthTanAngle,
+                                                   textureHeightTanAngle,
+                                                   xEyeOffsetTanAngleScreen,
+                                                   yEyeOffsetTanAngleScreen);
+
+    // fixme
+    const int textureWidthPx = 1290;
+    const int textureHeightPx = 752;
+    setupRenderTextureAndRenderbuffer(textureWidthPx, textureHeightPx);
+}
+
+DistortionMesh* OVRRenderer::createDistortionMesh(const EyeViewport& eyeViewport,
+                                                  float textureWidthTanAngle,
+                                                  float textureHeightTanAngle,
+                                                  float xEyeOffsetTanAngleScreen,
+                                                  float yEyeOffsetTanAngleScreen)
+{
+    return new DistortionMesh(_headMountedDisplay->getCardboard()->distortion(),
+                              _headMountedDisplay->getCardboard()->distortion(),
+                              _headMountedDisplay->getCardboard()->distortion(),
+                              _headMountedDisplay->getScreen()->widthInMeters() / _metersPerTanAngle,
+                              _headMountedDisplay->getScreen()->heightInMeters() / _metersPerTanAngle,
+                              xEyeOffsetTanAngleScreen, yEyeOffsetTanAngleScreen,
+                              textureWidthTanAngle, textureHeightTanAngle,
+                              eyeViewport.eyeX, eyeViewport.eyeY,
+                              eyeViewport.x, eyeViewport.y,
+                              eyeViewport.width, eyeViewport.height,
+                              false);
 }
 
 void OVRRenderer::draw(Renderer *renderer, const Mat4& transform, uint32_t flags)
@@ -164,11 +254,11 @@ void OVRRenderer::onEndDraw()
 
     glScissor(0, 0, width / 2, height);
 
-//    this->renderDistortionMesh(this->leftEyeDistortionMesh);
+    renderDistortionMesh(_leftEyeDistortionMesh, _textureId);
 
     glScissor(width / 2, 0, width / 2, height);
 
-//    this->renderDistortionMesh(this->rightEyeDistortionMesh);
+    renderDistortionMesh(_rightEyeDistortionMesh, _textureId);
 
 //    glDisableVertexAttribArray(this->programHolder->aPosition);
 //    glDisableVertexAttribArray(this->programHolder->aVignette);
@@ -185,6 +275,27 @@ void OVRRenderer::onEndDraw()
 
     glViewport(_viewport[0], _viewport[1], _viewport[2], _viewport[3]);
     
+    CHECK_GL_ERROR_DEBUG();
+}
+
+void OVRRenderer::renderDistortionMesh(DistortionMesh *mesh, GLint textureID)
+{
+    glBindBuffer(GL_ARRAY_BUFFER, mesh->_arrayBufferID);
+    glVertexAttribPointer(programHolder->positionLocation, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(0 * sizeof(float)));
+    glEnableVertexAttribArray(programHolder->positionLocation);
+    glVertexAttribPointer(programHolder->vignetteLocation, 1, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(2 * sizeof(float)));
+    glEnableVertexAttribArray(programHolder->vignetteLocation);
+    glVertexAttribPointer(programHolder->blueTextureCoordLocation, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(7 * sizeof(float)));
+    glEnableVertexAttribArray(programHolder->blueTextureCoordLocation);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glUniform1i(programHolder->uTextureSamplerLocation, 0);
+    glUniform1f(programHolder->uTextureCoordScaleLocation, _resolutionScale);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->_elementBufferID);
+    glDrawElements(GL_TRIANGLE_STRIP, mesh->_indices, GL_UNSIGNED_SHORT, 0);
+
     CHECK_GL_ERROR_DEBUG();
 }
 
