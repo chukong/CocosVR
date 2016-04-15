@@ -40,7 +40,7 @@ typedef struct cbQuat_
     float x, y, z, w;
 } cbQuat;
 
-// column-major 4x4 matrix, OpenGL ES format matrices.
+// row-major 4x4 matrix.
 typedef struct cbMatrix4_
 {
     float M[4][4];
@@ -70,7 +70,7 @@ typedef struct cbEyeParams_
 
 typedef struct cbEyes_
 {
-    cbEyeParams eyes[CB_EYE_NUM];
+    cbEyeParams eyeParams[CB_EYE_NUM];
 } cbEyes;
 
 typedef enum
@@ -78,17 +78,6 @@ typedef enum
     CBAPI_FALSE = 0,
     CBAPI_TRUE
 } cbBooleanResult;
-
-typedef enum
-{
-    CBAPI_VENDOR_GOOGLE_INC = 0,
-} cbVendorType;
-
-typedef enum
-{
-    CBAPI_MODEL_DEFAULT = 0,
-    CBAPI_MODEL_V1,
-} cbModelType;
 
 typedef enum
 {
@@ -101,15 +90,13 @@ typedef struct cbScreenParams_
 {
     int   width;
     int   height;
-    float xMetersPerPixel;
-    float yMetersPerPixel;
+    float xMeters;
+    float yMeters;
     float borderSizeMeters;
 } cbScreenParams;
 
 typedef struct cbDeviceParams_
 {
-    int                     vendor; // cbVendorType
-    int                     model;  // cbModelType
     float                   interLensDistance;
     cbVerticalAlignmentType VerticalAlignment;
     float                   verticalDistanceToLensCenter;

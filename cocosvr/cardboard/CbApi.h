@@ -8,8 +8,9 @@
 extern "C" {
 #endif
 
-CBAPI_EXPORT cbHeadMountedDisplay cbapi_Initialize(const cbJava *java);
-CBAPI_EXPORT cbEyes cbapi_EnterVrMode();
+CBAPI_EXPORT bool cbapi_Initialize(const cbJava *java, cbHeadMountedDisplay *headMountedDisplay);
+CBAPI_EXPORT cbEyes cbapi_GetEyes();
+CBAPI_EXPORT void cbapi_EnterVrMode();
 CBAPI_EXPORT void cbapi_LeaveVrMode();
 CBAPI_EXPORT cbMatrix4 cbapi_getLastHeadView();
 CBAPI_EXPORT void cbapi_beforeDrawFrame();
