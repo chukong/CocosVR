@@ -18,6 +18,8 @@
 		46880B7E19C43A67006E1F66 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
 		46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
+		502E11301CC1AE0500BE9D7F /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 502E112E1CC1AE0500BE9D7F /* Viewport.cpp */; };
+		502E11311CC1AE0500BE9D7F /* Viewport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 502E112E1CC1AE0500BE9D7F /* Viewport.cpp */; };
 		50366C821CC04ED8008854D8 /* Distortion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50366C801CC04ED8008854D8 /* Distortion.cpp */; };
 		50366C831CC04ED8008854D8 /* Distortion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50366C801CC04ED8008854D8 /* Distortion.cpp */; };
 		50366C8B1CC04F00008854D8 /* DistortionMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50366C891CC04F00008854D8 /* DistortionMesh.cpp */; };
@@ -147,6 +149,8 @@
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
+		502E112E1CC1AE0500BE9D7F /* Viewport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Viewport.cpp; sourceTree = "<group>"; };
+		502E112F1CC1AE0500BE9D7F /* Viewport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viewport.h; sourceTree = "<group>"; };
 		50366C801CC04ED8008854D8 /* Distortion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Distortion.cpp; sourceTree = "<group>"; };
 		50366C811CC04ED8008854D8 /* Distortion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Distortion.h; sourceTree = "<group>"; };
 		50366C891CC04F00008854D8 /* DistortionMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistortionMesh.cpp; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 				50366C961CC079F7008854D8 /* ScreenParams.h */,
 				50366C991CC07AE2008854D8 /* FieldOfView.cpp */,
 				50366C9A1CC07AE2008854D8 /* FieldOfView.h */,
+				502E112E1CC1AE0500BE9D7F /* Viewport.cpp */,
+				502E112F1CC1AE0500BE9D7F /* Viewport.h */,
 			);
 			name = cocosvr;
 			path = ../../cocosvr;
@@ -650,6 +656,7 @@
 				50366C971CC079F7008854D8 /* ScreenParams.cpp in Sources */,
 				5076BBEF1CBC6342006DABD2 /* OVRRenderer-generic.cpp in Sources */,
 				5076BBCB1CBC60A1006DABD2 /* Tank.cpp in Sources */,
+				502E11301CC1AE0500BE9D7F /* Viewport.cpp in Sources */,
 				5076BBCA1CBC60A1006DABD2 /* ProgressView.cpp in Sources */,
 				5076BBC61CBC60A1006DABD2 /* M24.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -673,6 +680,7 @@
 				5076BBD11CBC6116006DABD2 /* Panther.cpp in Sources */,
 				50366C981CC079F7008854D8 /* ScreenParams.cpp in Sources */,
 				5076BBD31CBC6116006DABD2 /* ProgressView.cpp in Sources */,
+				502E11311CC1AE0500BE9D7F /* Viewport.cpp in Sources */,
 				5076BBD51CBC6116006DABD2 /* Tiger.cpp in Sources */,
 				5076BBCD1CBC6116006DABD2 /* AppDelegate.cpp in Sources */,
 				5076BBEE1CBC6342006DABD2 /* OVRRenderer-gearvr.cpp in Sources */,

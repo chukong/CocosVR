@@ -4,6 +4,8 @@
 
 class DistortionMesh;
 class HeadMountedDisplay;
+class Viewport;
+class FieldOfView;
 
 struct EyeViewport
 {
@@ -28,9 +30,15 @@ public:
 	virtual void draw(cocos2d::Renderer *renderer, const cocos2d::Mat4& transform, uint32_t flags) override;
 	void setOffsetPos(const cocos2d::Vec3 &pos);
 	void setOffsetRot(const cocos2d::Quaternion &rot);
-
+    void setResolutionScale(float scale);
+    void updateViewports(Viewport *leftViewport, Viewport *rightViewport);
+    void fovDidChange(HeadMountedDisplay *headMountedDisplay,
+                      FieldOfView *leftEyeFov,
+                      FieldOfView *rightEyeFov,
+                      float virtualEyeToScreenDistance);
 private:
 	bool init(cocos2d::CameraFlag flag);
+    EyeViewport initViewportForEye(FieldOfView *eyeFieldOfView, float xOffset);
     int setupRenderTextureAndRenderbuffer(int width, int height);
 	void onBeginDraw();
 	void onEndDraw();
@@ -54,11 +62,16 @@ private:
     DistortionMesh* _rightEyeDistortionMesh;
     EyeViewport _leftEyeViewport;
     EyeViewport _rightEyeViewport;
+    bool _drawingFrame;
     float _metersPerTanAngle;
+    float _xPxPerTanAngle;
+    float _yPxPerTanAngle;
+    float _resolutionScale;
+    bool _viewportsChanged;
+    bool _fovsChanged;
 
     cocos2d::CustomCommand _beginRenderCommand;
     cocos2d::CustomCommand _endRenderCommand;
 };
-
 
 #endif

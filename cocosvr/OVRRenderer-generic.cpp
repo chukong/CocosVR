@@ -4,6 +4,8 @@
 #include "HeadMountedDisplay.h"
 #include "CardboardDeviceParams.h"
 #include "ScreenParams.h"
+#include "Viewport.h"
+#include "FieldOfView.h"
 
 USING_NS_CC;
 
@@ -28,6 +30,10 @@ OVRRenderer::OVRRenderer()
 : _textureId(-1)
 , _framebufferId(-1)
 , _renderbufferId(-1)
+, _resolutionScale(1.0f)
+, _viewportsChanged(true)
+, _drawingFrame(false)
+, _fovsChanged(false)
 {
     for (int eye = 0; eye < EYE_NUM; eye++)
         _eyeCamera[eye] = nullptr;
@@ -173,6 +179,24 @@ void OVRRenderer::updateTextureAndDistortionMesh()
     setupRenderTextureAndRenderbuffer(textureWidthPx, textureHeightPx);
 }
 
+EyeViewport OVRRenderer::initViewportForEye(FieldOfView *eyeFieldOfView, float xOffset)
+{
+    float left = tanf(CC_DEGREES_TO_RADIANS(eyeFieldOfView->left()));
+    float right = tanf(CC_DEGREES_TO_RADIANS(eyeFieldOfView->right()));
+    float bottom = tanf(CC_DEGREES_TO_RADIANS(eyeFieldOfView->bottom()));
+    float top = tanf(CC_DEGREES_TO_RADIANS(eyeFieldOfView->top()));
+
+    EyeViewport eyeViewport;
+    eyeViewport.x = xOffset;
+    eyeViewport.y = 0.0f;
+    eyeViewport.width = (left + right);
+    eyeViewport.height = (bottom + top);
+    eyeViewport.eyeX = (left + xOffset);
+    eyeViewport.eyeY = bottom;
+
+    return eyeViewport;
+}
+
 DistortionMesh* OVRRenderer::createDistortionMesh(const EyeViewport& eyeViewport,
                                                   float textureWidthTanAngle,
                                                   float textureHeightTanAngle,
@@ -281,22 +305,54 @@ void OVRRenderer::onEndDraw()
 void OVRRenderer::renderDistortionMesh(DistortionMesh *mesh, GLint textureID)
 {
     glBindBuffer(GL_ARRAY_BUFFER, mesh->_arrayBufferID);
-    glVertexAttribPointer(programHolder->positionLocation, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(0 * sizeof(float)));
-    glEnableVertexAttribArray(programHolder->positionLocation);
-    glVertexAttribPointer(programHolder->vignetteLocation, 1, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(2 * sizeof(float)));
-    glEnableVertexAttribArray(programHolder->vignetteLocation);
-    glVertexAttribPointer(programHolder->blueTextureCoordLocation, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(7 * sizeof(float)));
-    glEnableVertexAttribArray(programHolder->blueTextureCoordLocation);
+    _glProgramState->setVertexAttribPointer("a_position", 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(0 * sizeof(float)));
+    _glProgramState->setVertexAttribPointer("a_vignette", 1, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(2 * sizeof(float)));
+    _glProgramState->setVertexAttribPointer("a_blueTextureCoord", 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(7 * sizeof(float)));
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glUniform1i(programHolder->uTextureSamplerLocation, 0);
-    glUniform1f(programHolder->uTextureCoordScaleLocation, _resolutionScale);
+    _glProgramState->setUniformInt("u_textureSampler", 0);
+    _glProgramState->setUniformFloat("u_textureCoordScale", _resolutionScale);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->_elementBufferID);
     glDrawElements(GL_TRIANGLE_STRIP, mesh->_indices, GL_UNSIGNED_SHORT, 0);
 
     CHECK_GL_ERROR_DEBUG();
+}
+
+void OVRRenderer::updateViewports(Viewport *leftViewport, Viewport *rightViewport)
+{
+    leftViewport->setViewport(round(_leftEyeViewport.x * _xPxPerTanAngle * _resolutionScale),
+                              round(_leftEyeViewport.y * _yPxPerTanAngle * _resolutionScale),
+                              round(_leftEyeViewport.width * _xPxPerTanAngle * _resolutionScale),
+                              round(_leftEyeViewport.height * _yPxPerTanAngle * _resolutionScale));
+    rightViewport->setViewport(round(_rightEyeViewport.x * _xPxPerTanAngle * _resolutionScale),
+                               round(_rightEyeViewport.y * _yPxPerTanAngle * _resolutionScale),
+                               round(_rightEyeViewport.width * _xPxPerTanAngle * _resolutionScale),
+                               round(_rightEyeViewport.height * _yPxPerTanAngle * _resolutionScale));
+    _viewportsChanged = false;
+}
+
+void OVRRenderer::fovDidChange(HeadMountedDisplay *headMountedDisplay,
+                                      FieldOfView *leftEyeFov,
+                                      FieldOfView *rightEyeFov,
+                                      float virtualEyeToScreenDistance)
+{
+    if (_drawingFrame)
+    {
+        CCLOG("Cannot change FOV while rendering a frame.");
+        return;
+    }
+
+    _headMountedDisplay = headMountedDisplay;
+    _leftEyeViewport = initViewportForEye(leftEyeFov, 0.0f);
+    _rightEyeViewport = initViewportForEye(rightEyeFov, _leftEyeViewport.width);
+    _metersPerTanAngle = virtualEyeToScreenDistance;
+    ScreenParams *screen = _headMountedDisplay->getScreen();
+    _xPxPerTanAngle = screen->width() / ( screen->widthInMeters() / _metersPerTanAngle );
+    _yPxPerTanAngle = screen->height() / ( screen->heightInMeters() / _metersPerTanAngle );
+    _fovsChanged = true;
+    _viewportsChanged = true;
 }
 
 void OVRRenderer::update(float delta)
@@ -310,4 +366,10 @@ void OVRRenderer::setOffsetPos(const cocos2d::Vec3 &pos)
 
 void OVRRenderer::setOffsetRot(const cocos2d::Quaternion &rot)
 {
+}
+
+void OVRRenderer::setResolutionScale(float scale)
+{
+    _resolutionScale = scale;
+    _viewportsChanged = true;
 }
