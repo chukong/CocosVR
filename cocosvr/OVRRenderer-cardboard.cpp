@@ -126,8 +126,6 @@ void OVRRenderer::onBeginDraw()
 {
 	int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
 	cbapi_beforeDrawFrame();
-	if (eye == 0){
-	}
 	auto vp = _eyes.eyeParams[eye].viewport;
 
 	glEnable(GL_SCISSOR_TEST);
