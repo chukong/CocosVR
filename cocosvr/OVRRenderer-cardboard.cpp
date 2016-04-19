@@ -131,12 +131,12 @@ void OVRRenderer::onBeginDraw()
 	glEnable(GL_SCISSOR_TEST);
 	glDepthMask(true);
 
-	CCLOG("VIEWPORT:(%d, %d, %d, %d)", vp.x, vp.y, vp.width, vp.height);
+	//CCLOG("VIEWPORT:(%d, %d, %d, %d)", vp.x, vp.y, vp.width, vp.height);
 
 	glScissor(vp.x, vp.y, vp.width, vp.height);
 	glViewport(vp.x, vp.y, vp.width, vp.height);
 	glClearColor(0.125f, 0.0f, 0.125f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 
@@ -144,6 +144,26 @@ void OVRRenderer::onEndDraw()
 {
 	int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
 
+	
+	auto vp = _eyes.eyeParams[eye].viewport;	
+		// Explicitly clear the border texels to black because OpenGL-ES does not support GL_CLAMP_TO_BORDER.
+	{
+		// Clear to fully opaque black.
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// bottom
+		glScissor(vp.x, vp.y, vp.width, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+		// top
+		glScissor(vp.x, vp.height - 1, vp.width, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+		// left
+		glScissor(vp.x, vp.y, 1, vp.height);
+		glClear(GL_COLOR_BUFFER_BIT);
+		// right
+		glScissor(vp.x + vp.width - 1, vp.y, 1, vp.height);
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+		
 	glDepthMask(false);
 	glDisable(GL_SCISSOR_TEST);
 
