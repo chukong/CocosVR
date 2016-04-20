@@ -98,6 +98,8 @@
 		5087E78617EB970100C73F5D /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 5087E77B17EB970100C73F5D /* Icon-76.png */; };
 		5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78817EB974C00C73F5D /* AppKit.framework */; };
 		5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78A17EB975400C73F5D /* OpenGL.framework */; };
+		50DD05AA1CC70B290080240F /* Eye.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DD05A81CC70B290080240F /* Eye.cpp */; };
+		50DD05AB1CC70B290080240F /* Eye.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DD05A81CC70B290080240F /* Eye.cpp */; };
 		50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629217ECD46A001EB2F8 /* Icon-40.png */; };
 		50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629317ECD46A001EB2F8 /* Icon-58.png */; };
 		50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 50EF629417ECD46A001EB2F8 /* Icon-80.png */; };
@@ -225,6 +227,8 @@
 		5087E77C17EB970100C73F5D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		50DD05A81CC70B290080240F /* Eye.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Eye.cpp; sourceTree = "<group>"; };
+		50DD05A91CC70B290080240F /* Eye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eye.h; sourceTree = "<group>"; };
 		50EF629217ECD46A001EB2F8 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
 		50EF629317ECD46A001EB2F8 /* Icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-58.png"; sourceTree = "<group>"; };
 		50EF629417ECD46A001EB2F8 /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
@@ -458,6 +462,8 @@
 				50366C9A1CC07AE2008854D8 /* FieldOfView.h */,
 				502E112E1CC1AE0500BE9D7F /* Viewport.cpp */,
 				502E112F1CC1AE0500BE9D7F /* Viewport.h */,
+				50DD05A81CC70B290080240F /* Eye.cpp */,
+				50DD05A91CC70B290080240F /* Eye.h */,
 			);
 			name = cocosvr;
 			path = ../../cocosvr;
@@ -646,6 +652,7 @@
 				5076BBC41CBC60A1006DABD2 /* AppDelegate.cpp in Sources */,
 				50366C8B1CC04F00008854D8 /* DistortionMesh.cpp in Sources */,
 				50366C9B1CC07AE2008854D8 /* FieldOfView.cpp in Sources */,
+				50DD05AA1CC70B290080240F /* Eye.cpp in Sources */,
 				5076BBC91CBC60A1006DABD2 /* PlayerController.cpp in Sources */,
 				5076BBC51CBC60A1006DABD2 /* HelloWorldScene.cpp in Sources */,
 				50366C931CC079E7008854D8 /* CardboardDeviceParams.cpp in Sources */,
@@ -680,6 +687,7 @@
 				5076BBD11CBC6116006DABD2 /* Panther.cpp in Sources */,
 				50366C981CC079F7008854D8 /* ScreenParams.cpp in Sources */,
 				5076BBD31CBC6116006DABD2 /* ProgressView.cpp in Sources */,
+				50DD05AB1CC70B290080240F /* Eye.cpp in Sources */,
 				502E11311CC1AE0500BE9D7F /* Viewport.cpp in Sources */,
 				5076BBD51CBC6116006DABD2 /* Tiger.cpp in Sources */,
 				5076BBCD1CBC6116006DABD2 /* AppDelegate.cpp in Sources */,

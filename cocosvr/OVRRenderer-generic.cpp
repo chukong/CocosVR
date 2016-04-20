@@ -6,6 +6,7 @@
 #include "ScreenParams.h"
 #include "Viewport.h"
 #include "FieldOfView.h"
+#include "Eye.h"
 
 USING_NS_CC;
 
@@ -48,6 +49,7 @@ OVRRenderer::~OVRRenderer()
 bool OVRRenderer::init(cocos2d::CameraFlag flag)
 {
     CCLOG("OVRRenderer::init");
+    setupVR();
 
     for (int eye = 0; eye < EYE_NUM; eye++)
     {
@@ -70,6 +72,16 @@ bool OVRRenderer::init(cocos2d::CameraFlag flag)
     update(0.0f);
     scheduleUpdate();
     return true;
+}
+
+void OVRRenderer::setupVR()
+{
+    _headMountedDisplay = new HeadMountedDisplay((UIScreenIgnore*)nullptr);
+    _monocularEye = new Eye(Eye::TypeMonocular);
+    _leftEye = new Eye(Eye::TypeLeft);
+    _rightEye = new Eye(Eye::TypeRight);
+
+    fovDidChange(_leftEye->fov(), _rightEye->fov(), 0.042);
 }
 
 void OVRRenderer::setupGLProgram()
@@ -333,10 +345,9 @@ void OVRRenderer::updateViewports(Viewport *leftViewport, Viewport *rightViewpor
     _viewportsChanged = false;
 }
 
-void OVRRenderer::fovDidChange(HeadMountedDisplay *headMountedDisplay,
-                                      FieldOfView *leftEyeFov,
-                                      FieldOfView *rightEyeFov,
-                                      float virtualEyeToScreenDistance)
+void OVRRenderer::fovDidChange(FieldOfView *leftEyeFov,
+                               FieldOfView *rightEyeFov,
+                               float virtualEyeToScreenDistance)
 {
     if (_drawingFrame)
     {
@@ -344,7 +355,6 @@ void OVRRenderer::fovDidChange(HeadMountedDisplay *headMountedDisplay,
         return;
     }
 
-    _headMountedDisplay = headMountedDisplay;
     _leftEyeViewport = initViewportForEye(leftEyeFov, 0.0f);
     _rightEyeViewport = initViewportForEye(rightEyeFov, _leftEyeViewport.width);
     _metersPerTanAngle = virtualEyeToScreenDistance;
