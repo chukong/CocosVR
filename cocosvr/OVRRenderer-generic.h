@@ -1,13 +1,6 @@
-#ifndef __OVR_RENDERER_CARDBOARD_VR_H__
-#define __OVR_RENDERER_CARDBOARD_VR_H__
-
-#if defined(CARDBOARD_VR)
-
+#ifndef __OVR_RENDERER_GENERIC_VR_H__
+#define __OVR_RENDERER_GENERIC_VR_H__
 #include "cocos2d.h"
-#include "CbApi.h"
-#include "CbApi_Helpers.h"
-
-#define EYE_NUM CB_EYE_NUM
 
 class OVRRenderer : public cocos2d::Node
 {
@@ -29,19 +22,7 @@ private:
 	void onEndDraw();
 
 private:
-
-	cocos2d::Camera *_eyeCamera[EYE_NUM];
-	cocos2d::Vec3       _offsetPos;
-	cocos2d::Quaternion _offsetRot;
-
-	cbJava         _java;
-	cbHeadMountedDisplay _headMountDisplay;
-	cbEyes         _eyes;
-
-
-	cocos2d::CustomCommand _beginRenderCommand;
-	cocos2d::CustomCommand _endRenderCommand;
 };
-#endif // defined(CARDBOARD_VR)
+
 
 #endif

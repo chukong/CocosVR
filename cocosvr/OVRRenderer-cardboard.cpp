@@ -1,3 +1,5 @@
+#if defined(CARDBOARD_VR)
+
 #include "OVRRenderer-cardboard.h"
 
 USING_NS_CC;
@@ -208,3 +210,4 @@ void OVRRenderer::setOffsetRot(const cocos2d::Quaternion &rot)
 {
 	_offsetRot *= rot;
 }
+#endif // defined(CARDBOARD_VR)

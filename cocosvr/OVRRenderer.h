@@ -9,6 +9,6 @@
 #include "OVRRenderer-deepoon.h"
 #elif CARDBOARD_VR
 #include "OVRRenderer-cardboard.h"
-#endif
-
+#else
+#include "OVRRenderer-generic.h"
 #endif
