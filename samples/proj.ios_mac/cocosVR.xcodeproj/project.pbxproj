@@ -96,6 +96,7 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		BEBCC91B1CC87304005E6182 /* OVRRenderer-cardboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BEBCC9191CC87304005E6182 /* OVRRenderer-cardboard.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -208,6 +209,8 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BEBCC9191CC87304005E6182 /* OVRRenderer-cardboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "OVRRenderer-cardboard.cpp"; sourceTree = "<group>"; };
+		BEBCC91A1CC87304005E6182 /* OVRRenderer-cardboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OVRRenderer-cardboard.h"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -407,6 +410,8 @@
 		5076BBE11CBC6342006DABD2 /* cocosvr */ = {
 			isa = PBXGroup;
 			children = (
+				BEBCC9191CC87304005E6182 /* OVRRenderer-cardboard.cpp */,
+				BEBCC91A1CC87304005E6182 /* OVRRenderer-cardboard.h */,
 				5076BBE21CBC6342006DABD2 /* OVRRenderer-deepoon.cpp */,
 				5076BBE31CBC6342006DABD2 /* OVRRenderer-deepoon.h */,
 				5076BBE41CBC6342006DABD2 /* OVRRenderer-gearvr.cpp */,
@@ -610,6 +615,7 @@
 				5076BBEF1CBC6342006DABD2 /* OVRRenderer-generic.cpp in Sources */,
 				5076BBCB1CBC60A1006DABD2 /* Tank.cpp in Sources */,
 				5076BBCA1CBC60A1006DABD2 /* ProgressView.cpp in Sources */,
+				BEBCC91B1CC87304005E6182 /* OVRRenderer-cardboard.cpp in Sources */,
 				5076BBC61CBC60A1006DABD2 /* M24.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				5076BBCC1CBC60A1006DABD2 /* Tiger.cpp in Sources */,
