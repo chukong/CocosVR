@@ -53,6 +53,7 @@ private:
     cocos2d::Quaternion _offsetRot;
 
     GLint _framebufferId;
+    GLint _originalFramebuffer;
     GLint _textureId;
     GLint _renderbufferId;
     int _viewport[4];

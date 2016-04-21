@@ -112,9 +112,10 @@ void OVRRenderer::setupGLProgram()
     gl_FragColor = v_vignette * texture2D(u_textureSampler, v_textureCoord);\n\
     }\n";
 
-    auto glprogramstate = GLProgramState::getOrCreateWithShaders(vertexShader, fragmentShader, "");
+    auto program = GLProgram::createWithByteArrays(vertexShader, fragmentShader);
+    auto programState = GLProgramState::getOrCreateWithGLProgram(program);
 
-    setGLProgramState(glprogramstate);
+    setGLProgramState(programState);
 }
 
 int OVRRenderer::setupRenderTextureAndRenderbuffer(int width, int height)
@@ -130,7 +131,7 @@ int OVRRenderer::setupRenderTextureAndRenderbuffer(int width, int height)
 
     // create texture
     glGenTextures(1, (GLuint*)&_textureId);
-    glBindTexture(GL_TEXTURE_2D, _textureId);
+    GL::bindTexture2D(_textureId);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -245,13 +246,12 @@ void OVRRenderer::draw(Renderer *renderer, const Mat4& transform, uint32_t flags
 void OVRRenderer::onBeginDraw()
 {
     CCLOG("OVRRenderer::onBeginDraw");
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_originalFramebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, _framebufferId);
 
 //    int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
     glEnable(GL_SCISSOR_TEST);
     glDepthMask(true);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, _framebufferId);
 
     const int width = 512;
     const int height = 512;
@@ -268,7 +268,7 @@ void OVRRenderer::onEndDraw()
     const int width = 512;
     const int height = 512;
 
-    //glBindFramebuffer(GL_FRAMEBUFFER, this->originalFramebufferId);
+    glBindFramebuffer(GL_FRAMEBUFFER, _originalFramebuffer);
     glViewport(0, 0, width, height);
 
     glGetIntegerv(GL_VIEWPORT, _viewport);
@@ -281,10 +281,6 @@ void OVRRenderer::onEndDraw()
 
     glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //Set texture
-    GL::bindTexture2D(_textureId);
-    _glProgramState->apply(Mat4::IDENTITY);
 
     glEnable(GL_SCISSOR_TEST);
 
@@ -317,14 +313,18 @@ void OVRRenderer::onEndDraw()
 void OVRRenderer::renderDistortionMesh(DistortionMesh *mesh, GLint textureID)
 {
     glBindBuffer(GL_ARRAY_BUFFER, mesh->_arrayBufferID);
+
     _glProgramState->setVertexAttribPointer("a_position", 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(0 * sizeof(float)));
     _glProgramState->setVertexAttribPointer("a_vignette", 1, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(2 * sizeof(float)));
     _glProgramState->setVertexAttribPointer("a_blueTextureCoord", 2, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *)(7 * sizeof(float)));
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    _glProgramState->setUniformInt("u_textureSampler", 0);
+    _glProgramState->setUniformTexture("u_textureSampler", textureID);
     _glProgramState->setUniformFloat("u_textureCoordScale", _resolutionScale);
+
+//    GL::bindTexture2D(textureID);
+//    glUniform1i(programHolder->uTextureSamplerLocation, 0);
+//    glUniform1f(programHolder->uTextureCoordScaleLocation, _resolutionScale);
+
+    _glProgramState->apply(Mat4::IDENTITY);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->_elementBufferID);
     glDrawElements(GL_TRIANGLE_STRIP, mesh->_indices, GL_UNSIGNED_SHORT, 0);
