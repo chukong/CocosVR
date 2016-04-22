@@ -405,4 +405,4 @@ static inline cbMatrix4 cbapi_GetEyeViewMatrix(	const cbDeviceParams * devicePar
 	return cbMatrix4_Multiply( &eyeOffsetMatrix, headViewMatrix );
 }
 
-#endif	// OVR_VrApi_Helpers_h
+#endif

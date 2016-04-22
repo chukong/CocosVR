@@ -2,7 +2,7 @@
 #define _CbApi_Types_h
 
 #include <stdbool.h>
-#include "CbApi_Config.h"   // needed for VRAPI_EXPORT
+#include "CbApi_Config.h"
 
 //-----------------------------------------------------------------
 // Java
@@ -110,4 +110,4 @@ typedef struct cbHeadMountedDisplay_
     cbDeviceParams device;
 } cbHeadMountedDisplay;
 
-#endif	// OVR_VrApi_Types_h
+#endif

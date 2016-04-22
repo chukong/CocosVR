@@ -20,4 +20,4 @@ CBAPI_EXPORT void cbapi_afterDrawFrame();
 }	// extern "C"
 #endif
 
-#endif	// OVR_VrApi_h
+#endif
