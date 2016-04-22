@@ -66,7 +66,6 @@ bool OVRRenderer::init(cocos2d::CameraFlag flag)
     setCameraMask((unsigned short)flag);
 
     setupGLProgram();
-    setupRenderTextureAndRenderbuffer(1024, 1024);
     updateTextureAndDistortionMesh();
     
     update(0.0f);
@@ -131,7 +130,7 @@ int OVRRenderer::setupRenderTextureAndRenderbuffer(int width, int height)
 
     // create texture
     glGenTextures(1, (GLuint*)&_textureId);
-    GL::bindTexture2D(_textureId);
+    glBindTexture(GL_TEXTURE_2D, _textureId);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -187,8 +186,11 @@ void OVRRenderer::updateTextureAndDistortionMesh()
                                                    yEyeOffsetTanAngleScreen);
 
     // fixme
-    const int textureWidthPx = 1290;
-    const int textureHeightPx = 752;
+//    const int textureWidthPx = 1290;
+//    const int textureHeightPx = 752;
+    const int textureWidthPx = Director::getInstance()->getWinSize().width;
+    const int textureHeightPx = Director::getInstance()->getWinSize().height;
+
     setupRenderTextureAndRenderbuffer(textureWidthPx, textureHeightPx);
 }
 
@@ -249,65 +251,85 @@ void OVRRenderer::onBeginDraw()
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_originalFramebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, _framebufferId);
 
-//    int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
-    glEnable(GL_SCISSOR_TEST);
-    glDepthMask(true);
+    int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
 
-    const int width = 512;
-    const int height = 512;
+    ScreenParams *screen = _headMountedDisplay->getScreen();
 
-    glScissor(0, 0, width, height);
-    glViewport(0, 0, width, height);
-    glClearColor(0.125f, 0.0f, 0.125f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    if (eye == 0) {
+        glGetIntegerv(GL_VIEWPORT, _viewport);
+        _cullFaceEnabled = glIsEnabled(GL_CULL_FACE);
+        _scissorTestEnabled = glIsEnabled(GL_SCISSOR_TEST);
+
+        glEnable(GL_SCISSOR_TEST);
+        glDepthMask(true);
+
+        glViewport(0, 0, screen->width(), screen->height());
+        glScissor(0, 0, screen->width(), screen->height());
+        glClearColor(1, 1, 0.125f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
+
+    if (eye == 0) {
+        glViewport(0, 0, screen->width() / 2, screen->height());
+        glScissor(0, 0, screen->width() / 2, screen->height());
+    }
+    else
+    {
+        glViewport(screen->width() / 2, 0, screen->width() / 2, screen->height());
+        glScissor(screen->width() / 2, 0, screen->width() / 2, screen->height());
+    }
 }
 
 
 void OVRRenderer::onEndDraw()
 {
-    const int width = 512;
-    const int height = 512;
+    int eye = Camera::getVisitingCamera() == _eyeCamera[0] ? 0 : 1;
 
-    glBindFramebuffer(GL_FRAMEBUFFER, _originalFramebuffer);
-    glViewport(0, 0, width, height);
+    // don't do anything on left eye since we are drawing the distortion
+    // altogether
+    if (eye==1) {
 
-    glGetIntegerv(GL_VIEWPORT, _viewport);
+        const int width = _headMountedDisplay->getScreen()->width();
+        const int height = _headMountedDisplay->getScreen()->height();
 
-    _cullFaceEnabled = glIsEnabled(GL_CULL_FACE);
-    _scissorTestEnabled = glIsEnabled(GL_SCISSOR_TEST);
+        glBindFramebuffer(GL_FRAMEBUFFER, _originalFramebuffer);
+        glViewport(0, 0, width, height);
 
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_SCISSOR_TEST);
-
-    glClearColor(0.0F, 0.0F, 0.0F, 1.0F);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glEnable(GL_SCISSOR_TEST);
-
-    glScissor(0, 0, width / 2, height);
-
-    renderDistortionMesh(_leftEyeDistortionMesh, _textureId);
-
-    glScissor(width / 2, 0, width / 2, height);
-
-    renderDistortionMesh(_rightEyeDistortionMesh, _textureId);
-
-//    glDisableVertexAttribArray(this->programHolder->aPosition);
-//    glDisableVertexAttribArray(this->programHolder->aVignette);
-//    glDisableVertexAttribArray(this->programHolder->aTextureCoord);
-//    glUseProgram(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    if (_cullFaceEnabled)
-        glEnable(GL_CULL_FACE);
-    if (_scissorTestEnabled)
-        glEnable(GL_SCISSOR_TEST);
-    else
+        glDisable(GL_CULL_FACE);
         glDisable(GL_SCISSOR_TEST);
 
-    glViewport(_viewport[0], _viewport[1], _viewport[2], _viewport[3]);
-    
-    CHECK_GL_ERROR_DEBUG();
+        glClearColor(0.0F, 0.0F, 1.0F, 1.0F);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glEnable(GL_SCISSOR_TEST);
+
+        glScissor(0, 0, width / 2, height);
+        renderDistortionMesh(_leftEyeDistortionMesh, _textureId);
+        glScissor(width / 2, 0, width / 2, height);
+        renderDistortionMesh(_rightEyeDistortionMesh, _textureId);
+
+    //    glDisableVertexAttribArray(this->programHolder->aPosition);
+    //    glDisableVertexAttribArray(this->programHolder->aVignette);
+    //    glDisableVertexAttribArray(this->programHolder->aTextureCoord);
+    //    glUseProgram(0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        if (_cullFaceEnabled)
+            glEnable(GL_CULL_FACE);
+        else
+            glDisable(GL_CULL_FACE);
+
+        if (_scissorTestEnabled)
+            glEnable(GL_SCISSOR_TEST);
+        else
+            glDisable(GL_SCISSOR_TEST);
+
+        glViewport(_viewport[0], _viewport[1], _viewport[2], _viewport[3]);
+        
+        CHECK_GL_ERROR_DEBUG();
+    }
 }
 
 void OVRRenderer::renderDistortionMesh(DistortionMesh *mesh, GLint textureID)
