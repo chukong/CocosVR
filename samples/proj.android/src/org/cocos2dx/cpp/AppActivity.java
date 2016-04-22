@@ -51,6 +51,13 @@ public class AppActivity extends GameControllerActivity {
         this.nativeOnCreate(this);
         getGLSurfaceView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        getGLSurfaceView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
 
     private static native void nativeOnCreate(final Activity pActivity);
     private static native String nativeOnLoadLibraryName();
