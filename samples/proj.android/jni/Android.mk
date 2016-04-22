@@ -10,6 +10,8 @@ ifeq ($(VR_PLATFORM),GEAR_VR)
 $(call import-add-path,$(OVRSDKMOBILEROOT))
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
 $(call import-add-path,$(DEEPOONSDKROOT))
+else ifeq ($(VR_PLATFORM),CARDBOARD_VR)
+$(call import-add-path,$(CARDBOARDROOT))
 endif
 
 LOCAL_MODULE := cocos2dcpp_shared
@@ -51,6 +53,24 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocosvr \
                     $(DEEPOONSDKROOT)include
+else ifeq ($(VR_PLATFORM),CARDBOARD_VR)
+LOCAL_SRC_FILES := hellocpp/main.cpp \
+                   hellocpp/HelperJNI.cpp \
+                   ../../../cocosvr/cardboard/CbApi.cpp \
+                   ../../../cocosvr/OVRRenderer-cardboard.cpp \
+                   ../../Classes/AppDelegate.cpp \
+                   ../../Classes/HelloWorldScene.cpp \
+                   ../../Classes/M24.cpp \
+                   ../../Classes/P4F2.cpp \
+                   ../../Classes/Panther.cpp \
+                   ../../Classes/Tank.cpp \
+                   ../../Classes/Tiger.cpp \
+                   ../../Classes/PlayerController.cpp \
+                   ../../Classes/ProgressView.cpp
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+                    $(LOCAL_PATH)/../../../cocosvr \
+                    $(LOCAL_PATH)/../../../cocosvr/cardboard
 endif
 
 # _COCOS_HEADER_ANDROID_BEGIN
@@ -72,6 +92,8 @@ LOCAL_CPPFLAGS += -DGEAR_VR
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
 LOCAL_SHARED_LIBRARIES := deepoon_sdk
 LOCAL_CPPFLAGS += -DDEEPOON_VR
+else ifeq ($(VR_PLATFORM),CARDBOARD_VR)
+LOCAL_CPPFLAGS += -DCARDBOARD_VR
 endif
 
 # _COCOS_LIB_ANDROID_BEGIN

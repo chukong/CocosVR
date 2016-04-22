@@ -29,6 +29,7 @@ package org.cocos2dx.cpp;
 import org.cocos2dx.lib.GameControllerActivity;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.View;
 
 public class AppActivity extends GameControllerActivity {
 
@@ -48,6 +49,7 @@ public class AppActivity extends GameControllerActivity {
             System.loadLibrary(libName);
         }
         this.nativeOnCreate(this);
+        getGLSurfaceView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
     private static native void nativeOnCreate(final Activity pActivity);

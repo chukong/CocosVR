@@ -32,12 +32,23 @@ def vrPlatform(vr_platform):
     if os.path.exists("./libs"):
         shutil.rmtree("./libs")
     os.mkdir("./libs")
+
+    if os.path.exists("./src/org/cocos2dx/cpp/CbAPIWrapper.java"):
+        os.remove("./src/org/cocos2dx/cpp/CbAPIWrapper.java")
+
     if vr_platform is None or vr_platform == 'gearvr':
         os.environ["VR_PLATFORM"] = 'GEAR_VR'
+        shutil.copyfile('AndroidManifest-gearvr.xml', 'AndroidManifest.xml')
         shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrApi/Libs/Android/VrApi.jar", "./libs")
         shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrAppSupport/SystemUtils/Libs/Android/SystemUtils.jar", "./libs")
+    elif vr_platform == 'cardboard':
+        os.environ["VR_PLATFORM"] = 'CARDBOARD_VR'
+        shutil.copyfile('../../cocosvr/cardboard/CbAPIWrapper.java', './src/org/cocos2dx/cpp/CbAPIWrapper.java')
+        shutil.copyfile('AndroidManifest-cardboard.xml', 'AndroidManifest.xml')
+        shutil.copy(os.environ["CARDBOARDROOT"] + "libs/cardboard.jar", "./libs")
     elif vr_platform != 'gearvr':
         os.environ["VR_PLATFORM"] = 'DEEPOON_VR'
+        shutil.copyfile('AndroidManifest-deepoon.xml', 'AndroidManifest.xml')
         shutil.copy(os.environ["DEEPOONSDKROOT"] + "lib/deepoon_sdk.jar", "./libs")
     #os.system('copyVRlibs.bat')
 
@@ -50,7 +61,7 @@ if __name__ == '__main__':
     help='it is not used')
     parser.add_option("-b", "--build", dest="build_mode", 
     help='the build mode for java project,debug[default] or release.Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
-    parser.add_option("-V", "--vrplatform", dest="vr_platform", help='define vr platform (gearvr/deepoon)')
+    parser.add_option("-V", "--vrplatform", dest="vr_platform", help='define vr platform (gearvr/deepoon/cardboard)')
     (opts, args) = parser.parse_args()
     
     print "Please use cocos console instead.\n"

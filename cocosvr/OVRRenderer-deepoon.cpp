@@ -1,3 +1,5 @@
+#if defined(DEEPOON_VR)
+
 #include "OVRRenderer-deepoon.h"
 
 USING_NS_CC;
@@ -252,3 +254,5 @@ void OVRRenderer::setOffsetRot(const cocos2d::Quaternion &rot)
 {
 	_offsetRot *= rot;
 }
+
+#endif // defined(DEEPOON_VR)

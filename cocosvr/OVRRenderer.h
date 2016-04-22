@@ -7,6 +7,8 @@
 #include "OVRRenderer-gearvr.h"
 #elif DEEPOON_VR
 #include "OVRRenderer-deepoon.h"
-#endif
-
+#elif CARDBOARD_VR
+#include "OVRRenderer-cardboard.h"
+#else
+#include "OVRRenderer-generic.h"
 #endif
