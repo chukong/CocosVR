@@ -1,5 +1,8 @@
 #ifndef __OVR_RENDERER_GEAR_VR_H__
 #define __OVR_RENDERER_GEAR_VR_H__
+
+#if defined(GEAR_VR)
+
 #include "cocos2d.h"
 #include <VrApi.h>
 #include <VrApi_Helpers.h>
@@ -191,5 +194,7 @@ private:
 	cocos2d::CustomCommand _beginRenderCommand;
 	cocos2d::CustomCommand _endRenderCommand;
 };
+
+#endif // defined(GEAR_VR)
 
 #endif

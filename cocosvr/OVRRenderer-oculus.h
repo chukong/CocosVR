@@ -1,5 +1,8 @@
 #ifndef __OVR_RENDERER_OCULUS_VR_H__
 #define __OVR_RENDERER_OCULUS_VR_H__
+
+#if defined(OCULUS_VR)
+
 #include "cocos2d.h"
 #include <Kernel/OVR_System.h>
 #include <Extras/OVR_Math.h>
@@ -217,5 +220,8 @@ private:
 	cocos2d::CustomCommand _beginRenderCommand;
 	cocos2d::CustomCommand _endRenderCommand;
 };
+
+
+#endif // defined(OCULUS_VR)
 
 #endif
