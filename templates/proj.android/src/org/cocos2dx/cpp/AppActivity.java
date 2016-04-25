@@ -29,6 +29,7 @@ package org.cocos2dx.cpp;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.View;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -41,6 +42,14 @@ public class AppActivity extends Cocos2dxActivity {
             System.loadLibrary(libName);
         }
         this.nativeOnCreate(this);
+        getGLSurfaceView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+    }
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        getGLSurfaceView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
     private static native void nativeOnCreate(final Activity pActivity);

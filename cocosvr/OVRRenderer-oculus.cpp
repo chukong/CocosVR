@@ -1,3 +1,5 @@
+#if defined(OCULUS_VR)
+
 #include "OVRRenderer.h"
 
 USING_NS_CC;
@@ -199,3 +201,5 @@ void OVRRenderer::setOffsetRot(const cocos2d::Quaternion &rot)
 {
 	_offsetRot *= rot;
 }
+
+#endif // defined(OCULUS_VR)

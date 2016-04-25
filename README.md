@@ -32,7 +32,7 @@ $ python download-deps.py
 
 
 ##VR Platform support
-This project supports Three VR platforms: **Oculus VR**(win32), **Gear VR** and **Deepoon VR**(Samsung Note4/5 S6).
+This project supports Three VR platforms: **Oculus VR**(win32), **Gear VR** , **Deepoon VR**(Samsung Note4/5 S6) and **Cardboard VR**.
 
 ###SDK Requires
 OculusVR PC **SDK V0.8**.
@@ -42,6 +42,8 @@ OculusVR Mobile **SDK V1.0.0.1**.
 
 Deepoon Mobile **SDK V0.1.2**.
 
+Cardboard Mobile **SDK V2.2**
+
 >**Important**: Requires download **oculus signature file** for your mobile device **from oculus official website**, see oculus official documentation for more information
 
 ###Environment Variables
@@ -50,6 +52,8 @@ Deepoon Mobile **SDK V0.1.2**.
 **OVRSDKMOBILEROOT:** PATH/
 
 **DEEPOONSDKROOT:** **PATH/samples/samples/native/SDKLib/**
+
+**CARDBOARDROOT:** **PATH/CardboardSample/**
 
 > PATH means the absolute path of SDK root directory
 
@@ -65,6 +69,8 @@ Path: `cocosVR/samples/proj.android/`.
 execute `build_native.py -V gearvr [-b release]` for **Gear VR platforms**
 
 execute `build_native.py -V deepoon [-b release]` for **Deepoon VR platforms**
+
+execute `build_native.py -V cardboard [-b release]` for **Cardboard VR platforms**
 
 >Suggest using release mode to build demo
 

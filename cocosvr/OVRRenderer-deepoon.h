@@ -1,5 +1,8 @@
 #ifndef __OVR_RENDERER_DEEPOON_VR_H__
 #define __OVR_RENDERER_DEEPOON_VR_H__
+
+#if defined(DEEPOON_VR)
+
 #include "cocos2d.h"
 #include <deepoon_sdk.h>
 #include <deepoon_sdk_native.h>
@@ -187,5 +190,6 @@ private:
 	cocos2d::CustomCommand _endRenderCommand;
 };
 
+#endif // defined(DEEPOON_VR)
 
 #endif
