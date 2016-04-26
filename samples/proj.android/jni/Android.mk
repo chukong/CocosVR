@@ -5,14 +5,7 @@ include $(CLEAR_VARS)
 $(call import-add-path,$(LOCAL_PATH)/../../../cocos2d)
 $(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/external)
 $(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/cocos)
-
-ifeq ($(VR_PLATFORM),GEAR_VR)
-$(call import-add-path,$(OVRSDKMOBILEROOT))
-else ifeq ($(VR_PLATFORM),DEEPOON_VR)
-$(call import-add-path,$(DEEPOONSDKROOT))
-else ifeq ($(VR_PLATFORM),CARDBOARD_VR)
-$(call import-add-path,$(CARDBOARDROOT))
-endif
+$(call import-add-path,$(LOCAL_PATH)/../../../external)
 
 LOCAL_MODULE := cocos2dcpp_shared
 
@@ -34,8 +27,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocosvr \
-                    $(OVRSDKMOBILEROOT)VrApi/Include \
-                    $(OVRSDKMOBILEROOT)VrAppSupport/SystemUtils/Include
+                    $(LOCAL_PATH)/../../../external/gearvr/include
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
@@ -52,7 +44,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocosvr \
-                    $(DEEPOONSDKROOT)include
+                    $(LOCAL_PATH)/../../../external/deepoon/include
 else ifeq ($(VR_PLATFORM),CARDBOARD_VR)
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    hellocpp/HelperJNI.cpp \
@@ -85,8 +77,8 @@ LOCAL_CPPFLAGS += -std=c++11
 LOCAL_CPPFLAGS += -DANDROID
 
 ifeq ($(VR_PLATFORM),GEAR_VR)
-LOCAL_STATIC_LIBRARIES += systemutils
-LOCAL_STATIC_LIBRARIES += libovrkernel
+#LOCAL_STATIC_LIBRARIES += systemutils
+#LOCAL_STATIC_LIBRARIES += libovrkernel
 LOCAL_SHARED_LIBRARIES := vrapi
 LOCAL_CPPFLAGS += -DGEAR_VR
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
@@ -104,11 +96,9 @@ include $(BUILD_SHARED_LIBRARY)
 $(call import-module,.)
 
 ifeq ($(VR_PLATFORM),GEAR_VR)
-$(call import-module,LibOVRKernel/Projects/AndroidPrebuilt/jni)
-$(call import-module,VrApi/Projects/AndroidPrebuilt/jni)
-$(call import-module,VrAppSupport/SystemUtils/Projects/AndroidPrebuilt/jni)
+$(call import-module,gearvr/prebuild)
 else ifeq ($(VR_PLATFORM),DEEPOON_VR)
-$(call import-module,project/jni)
+$(call import-module,deepoon/prebuild)
 endif
 
 # _COCOS_LIB_IMPORT_ANDROID_BEGIN
