@@ -34,16 +34,7 @@ $ python download-deps.py
 ##VR Platform support
 This project supports Three VR platforms: **Oculus VR**(win32), **Gear VR** , **Deepoon VR**(Samsung Note4/5 S6) and **Cardboard VR**.
 
-###SDK Requires
-OculusVR PC **SDK V0.8**.
->Requires compile the SDK source code by VS2015 and build **/MD(release) and /MDd(debug) Runtime Library**
-
->**Important**: Requires download **oculus signature file** for your mobile device **from oculus official website**, see oculus official documentation for more information
-
-###Environment Variables
-**OVRSDKROOT:**  PATH/
-
-> PATH means the absolute path of SDK root directory
+>**Important**: **Gear VR** and **Deepoon VR** Requires download **oculus signature file** for your mobile device **from oculus official website**, see oculus official documentation for more information
 
 ##Run Demo
 
