@@ -29,12 +29,12 @@ OVRRenderer::~OVRRenderer()
 	}
 	ovr_Destroy(_HMD);
 	ovr_Shutdown();
-	OVR::System::Destroy();
+	//OVR::System::Destroy();
 }
 
 bool OVRRenderer::init(cocos2d::CameraFlag flag)
 {
-	OVR::System::Init();
+	//OVR::System::Init();
 	// Initializes LibOVR, and the Rift
 	ovrResult result = ovr_Initialize(nullptr);
 	if (!OVR_SUCCESS(result)) {

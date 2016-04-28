@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 #include <VrApi.h>
 #include <VrApi_Helpers.h>
-#include <SystemActivities.h>
+//#include <SystemActivities.h>
 
 #define GL( func )		func;
 #define EYE_NUM VRAPI_FRAME_LAYER_EYE_MAX

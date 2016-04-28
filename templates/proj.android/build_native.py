@@ -39,17 +39,18 @@ def vrPlatform(vr_platform):
     if vr_platform is None or vr_platform == 'gearvr':
         os.environ["VR_PLATFORM"] = 'GEAR_VR'
         shutil.copyfile('AndroidManifest-gearvr.xml', 'AndroidManifest.xml')
-        shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrApi/Libs/Android/VrApi.jar", "./libs")
-        shutil.copy(os.environ["OVRSDKMOBILEROOT"] + "VrAppSupport/SystemUtils/Libs/Android/SystemUtils.jar", "./libs")
+        shutil.copyfile('AndroidManifest-gearvr.xml', 'AndroidManifest.xml')
+        shutil.copy("../external/gearvr/prebuild/VrApi.jar", "./libs")
+        #shutil.copy("../external/gearvr/prebuild/SystemUtils.jar", "./libs")
     elif vr_platform == 'cardboard':
         os.environ["VR_PLATFORM"] = 'CARDBOARD_VR'
         shutil.copyfile('../cocosvr/cardboard/CbAPIWrapper.java', './src/org/cocos2dx/cpp/CbAPIWrapper.java')
         shutil.copyfile('AndroidManifest-cardboard.xml', 'AndroidManifest.xml')
-        shutil.copy(os.environ["CARDBOARDROOT"] + "libs/cardboard.jar", "./libs")
+        shutil.copy("../external/cardboard/cardboard.jar", "./libs")
     elif vr_platform != 'gearvr':
         os.environ["VR_PLATFORM"] = 'DEEPOON_VR'
         shutil.copyfile('AndroidManifest-deepoon.xml', 'AndroidManifest.xml')
-        shutil.copy(os.environ["DEEPOONSDKROOT"] + "lib/deepoon_sdk.jar", "./libs")
+        shutil.copy("../external/deepoon/prebuild/deepoon_sdk.jar", "./libs")
     #os.system('copyVRlibs.bat')
 
 # -------------- main --------------

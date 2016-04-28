@@ -189,6 +189,8 @@ if __name__ == '__main__':
     shutil.copytree("./templates", new_path)
     vr_path = os.path.join(new_path, 'cocosvr')
     shutil.copytree("./cocosvr", vr_path)
+    ext_path = os.path.join(new_path, 'external')
+    shutil.copytree("./external", ext_path)
 
     f = open('cocos-project-template.json')
     data = json.load(f)
